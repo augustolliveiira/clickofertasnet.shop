@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="pt"><head>
+<script 
+  src="https://cdn.jsdelivr.net/gh/devluxca/kwaiutm@v0.1.2/utm-handler.js"
+  data-token="7ccff7c9-967e-4453-8bd8-6464e7ad0f72"
+  data-click-id-param="click_id">
+</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload" href="/_next/static/media/a34f9d1faa5f3315-s.p.woff2" as="font" crossorigin="" type="font/woff2">
+  <link rel="preload" as="image" href="https://www.facebook.com/tr?id=1646412279301630&ev=PageView&noscript=1">
+  <link rel="stylesheet" href="css/981eb5c2c7a99fb5.css" data-precedence="next">
+  <link rel="preload" as="script" fetchpriority="low" href="/_next/static/chunks/webpack-1b400f1de436fe28.js">
+  <script src="js/fd9d1056-2ce1b21c64323804.js" async=""></script>
+  <script src="js/117-67cb1fcee0189879.js" async=""></script>
+  <script src="js/main-app-b840e258ff6945a0.js" async=""></script>
+  <script src="js/582-07ff78d5fdc62c60.js" async=""></script>
+  <script src="js/3-8e70003890909321.js" async=""></script>
+  <script src="js/page-19aed7ec9a817040.js" async=""></script>
+  <script src="js/layout-f2a879216db6a90a.js" async=""></script>
+  <title>Rewards</title>
+  <meta name="description" content="Ganhe recompensas com Rewards">
+  <meta name="generator" content="v0.dev">
+  <meta name="next-size-adjust">
+  <style>
+    .extension-menu {
+      display: none !important;
+    }
+
+    img {
+      pointer-events: none;
+    }
+  </style>
+  <script src="js/polyfills-42372ed130431b0a.js" nomodule=""></script>
+</head>
+
+<body class="__className_d65c78"><!--$-->
+  <main class="min-h-screen bg-[#fff5ec]"><!--$-->
+    <div class="container mx-auto px-4 py-6 max-w-md">
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-8"><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground h-10 w-10 hover:bg-black/5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left w-6 h-6">
+              <path d="m12 19-7-7 7-7"></path>
+              <path d="M19 12H5"></path>
+            </svg></button>
+          <div class="flex gap-2"><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground h-10 w-10 hover:bg-black/5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize w-6 h-6">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3"></path>
+                <path d="M21 8V5a2 2 0 0 0-2-2h-3"></path>
+                <path d="M3 16v3a2 2 0 0 0 2 2h3"></path>
+                <path d="M16 21h3a2 2 0 0 0 2-2v-3"></path>
+              </svg></button><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-accent-foreground h-10 w-10 hover:bg-black/5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info w-6 h-6">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+              </svg></button></div>
+        </div>
+        <div class="grid grid-cols-2 gap-8">
+          <div>
+            <div class="text-lg font-medium mb-1">Saldo</div>
+            <div class="flex flex-col items-start"><button class="flex items-center gap-1 group"><span class="text-2xl font-bold group-hover:text-[#ff4d00] transition-colors">R$ <!-- -->0.00</span><span class="text-xl group-hover:text-[#ff4d00] transition-colors">></span></button><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 rounded-md px-3 mt-2 bg-[#ff4d00] hover:bg-[#ff4d00]/90 text-white">Sacar</button>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-1 mb-1"><span class="text-lg font-medium">Golds</span><span class="text-sm">?</span></div>
+            <div class="flex items-center gap-1">
+              <div class="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold">K
+              </div><span class="text-2xl font-bold">170</span><span class="text-xl">></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div class="rounded-lg border bg-card shadow-sm p-6 bg-gradient-to-r from-[#ff4d00] to-orange-500 text-white">
+          <div class="flex items-center gap-3 mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gift w-8 h-8">
+              <rect x="3" y="8" width="18" height="4" rx="1"></rect>
+              <path d="M12 8v13"></path>
+              <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path>
+              <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path>
+            </svg>
+            <h2 class="text-2xl font-bold">Bem-vindo ao Rewards!</h2>
+          </div>
+          <p class="text-white/90 mb-4">Ganhe recompensas respondendo perguntas simples e completando atividades
+            diárias.</p>
+          <div class="flex items-center gap-2 bg-white/20 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-coins w-5 h-5 text-yellow-300">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path>
+              <path d="M7 6h1v4"></path>
+              <path d="m16.71 13.88.7.71-2.82 2.82"></path>
+            </svg><span class="text-sm">Ganhe até R$578,31 em recompensas hoje!</span></div>
+        </div>
+        <div class="rounded-lg border text-card-foreground shadow-sm p-6 bg-white">
+          <div class="mb-6">
+            <div class="text-sm text-muted-foreground mb-2">Questão <!-- -->1<!-- --> de <!-- -->14</div>
+            <h3 class="text-xl font-semibold">Qual sua idade?</h3>
+          </div>
+          <div class="space-y-3"><button class="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent h-10 px-4 py-2 w-full justify-between group hover:border-kwai-red hover:text-kwai-red">18-24<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 group-hover:translate-x-1 transition-transform">
+                <path d="m9 18 6-6-6-6"></path>
+              </svg></button><button class="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent h-10 px-4 py-2 w-full justify-between group hover:border-kwai-red hover:text-kwai-red">25-34<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 group-hover:translate-x-1 transition-transform">
+                <path d="m9 18 6-6-6-6"></path>
+              </svg></button><button class="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent h-10 px-4 py-2 w-full justify-between group hover:border-kwai-red hover:text-kwai-red">35-44<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 group-hover:translate-x-1 transition-transform">
+                <path d="m9 18 6-6-6-6"></path>
+              </svg></button><button class="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent h-10 px-4 py-2 w-full justify-between group hover:border-kwai-red hover:text-kwai-red">45+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 group-hover:translate-x-1 transition-transform">
+                <path d="m9 18 6-6-6-6"></path>
+              </svg></button></div>
+          <div class="mt-4 text-center text-sm text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-coins w-4 h-4 inline mr-1 text-yellow-500">
+              <circle cx="8" cy="8" r="6"></circle>
+              <path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path>
+              <path d="M7 6h1v4"></path>
+              <path d="m16.71 13.88.7.71-2.82 2.82"></path>
+            </svg>Ganhe R$<!-- -->52.55<!-- --> por esta resposta</div>
+        </div>
+      </div>
+      <div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+        <div class="rounded-lg border text-card-foreground shadow-sm w-full max-w-md relative animate-in fade-in-0 zoom-in-95 bg-white">
+          <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10 absolute right-2 top-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-4 h-4">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg></button>
+          <div class="flex flex-col space-y-1.5 p-6 text-center">
+            <div class="font-semibold tracking-tight text-2xl">Parabéns!</div>
+            <div class="text-sm text-muted-foreground">Você recebeu recompensa de convite!</div>
+          </div>
+          <div class="p-6 pt-0 text-center space-y-4">
+            <div class="flex items-center justify-center gap-4 text-4xl font-bold">
+              <div>
+                <div class="text-sm text-muted-foreground">R$</div>38
+              </div>
+              <div class="text-2xl">+</div>
+              <div class="text-[#ff4d00]">
+                <div class="text-sm text-muted-foreground">R$</div>12
+              </div>
+            </div>
+            <div class="bg-orange-100 text-[#ff4d00] py-2 px-4 rounded-full text-sm">Prêmio por tempo limitado</div>
+          </div>
+          <div class="flex items-center p-6 pt-0"><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary hover:bg-primary/90 h-10 px-4 py-2 w-full bg-gradient-to-r from-[#ff4d00] to-orange-500 hover:from-[#ff4d00]/90 hover:to-orange-500/90 text-white">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div><!--/$-->
+  </main><!--/$-->
+  <script src="js/webpack-1b400f1de436fe28.js" async=""></script>
+  <script>(self._next_f = self.next_f || []).push([0]); self._next_f.push([2, null])</script>
+  <script>self.__next_f.push([1, "1:HL[\"/_next/static/media/a34f9d1faa5f3315-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"/_next/static/css/981eb5c2c7a99fb5.css\",\"style\"]\n"])</script>
+  <script>self.__next_f.push([1, "3:I[2846,[],\"\"]\n5:I[9107,[],\"ClientPageRoot\"]\n6:I[260,[\"582\",\"static/chunks/582-07ff78d5fdc62c60.js\",\"3\",\"static/chunks/3-8e70003890909321.js\",\"931\",\"static/chunks/app/page-19aed7ec9a817040.js\"],\"default\",1]\n7:I[8003,[\"582\",\"static/chunks/582-07ff78d5fdc62c60.js\",\"3\",\"static/chunks/3-8e70003890909321.js\",\"185\",\"static/chunks/app/layout-f2a879216db6a90a.js\"],\"\"]\n8:I[1361,[\"582\",\"static/chunks/582-07ff78d5fdc62c60.js\",\"3\",\"static/chunks/3-8e70003890909321.js\",\"185\",\"static/chunks/app/layout-f2a879216db6a90a.js\"],\"RewardsProvider\"]\n9:I[4103,[\"582\",\"static/chunks/582-07ff78d5fdc62c60.js\",\"3\",\"static/chunks/3-8e70003890909321.js\",\"185\",\"static/chunks/app/layout-f2a879216db6a90a.js\"],\"default\"]\na:I[4707,[],\"\"]\nb:I[6423,[],\"\"]\nc:I[7885,[\"582\",\"static/chunks/582-07ff78d5fdc62c60.js\",\"3\",\"static/chunks/3-8e70003890909321.js\",\"185\",\"static/chunks/app/layout-f2a879216db6a90a.js\"],\"default\"]\ne:I[1060,[],\"\"]\nf:[]\n"])</script>
+  <script>self._next_f.push([1, "0:[\"$\",\"$L3\",null,{\"buildId\":\"sNs3305dGv56PhkbwdFtl\",\"assetPrefix\":\"\",\"urlParts\":[\"\",\"\"],\"initialTree\":[\"\",{\"children\":[\"PAGE\",{}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[\"PAGE\",{},[[\"$L4\",[\"$\",\"$L5\",null,{\"props\":{\"params\":{},\"searchParams\":{}},\"Component\":\"$6\"}],null],null],null]},[[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/981eb5c2c7a99fb5.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"pt\",\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"$L7\",null,{\"id\":\"microsoft-clarity\",\"strategy\":\"afterInteractive\",\"children\":\"\\n            (function(c,l,a,r,i,t,y){\\n                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};\\n                t=l.createElement(r);t.async=1;t.src=\\\"https://www.clarity.ms/tag/\\\"+i;\\n                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);\\n            })(window, document, \\\"clarity\\\", \\\"script\\\", \\\"qb9cpaa521\\\");\\n          \"}],[\"$\",\"$L7\",null,{\"id\":\"facebook-pixel\",\"strategy\":\"afterInteractive\",\"children\":\"\\n            !function(f,b,e,v,n,t,s)\\n            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?\\n            n.callMethod.apply(n,arguments):n.queue.push(arguments)};\\n            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\\n            n.queue=[];t=b.createElement(e);t.async=!0;\\n            t.src=v;s=b.getElementsByTagName(e)[0];\\n            s.parentNode.insertBefore(t,s)}(window, document,'script',\\n            'https://connect.facebook.net/en_US/fbevents.js');\\n            fbq('init', '1646412279301630');\\n          \"}],[\"$\",\"noscript\",null,{\"children\":[\"$\",\"img\",null,{\"height\":\"1\",\"width\":\"1\",\"style\":{\"display\":\"none\"},\"src\":\"https://www.facebook.com/tr?id=1646412279301630\u0026ev=PageView\u0026noscript=1\",\"alt\":\"\"}]}],[\"$\",\"style\",null,{\"children\":\"\\n          .extension-menu {\\n            display: none !important;\\n          }\\n          img {\\n            pointer-events: none;\\n          }\\n        \"}]]}],[\"$\",\"body\",null,{\"className\":\"className_d65c78\",\"children\":[\"$\",\"$L8\",null,{\"children\":[[\"$\",\"$L9\",null,{}],[\"$\",\"$La\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lb\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"_html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":\"404\"}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],\"notFoundStyles\":[]}],[\"$\",\"$Lc\",null,{}]]}]}]]}]],null],[[\"$\",\"div\",null,{\"className\":\"flex items-center justify-center min-h-screen\",\"children\":[\"$\",\"div\",null,{\"className\":\"w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin\"}]}],[],[]]],\"couldBeIntercepted\":false,\"initialHead\":[null,\"$Ld\"],\"globalErrorComponent\":\"$e\",\"missingSlots\":\"$Wf\"}]\n"])</script>
+  <script>self.__next_f.push([1, "d:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"2\",{\"children\":\"Rewards\"}],[\"$\",\"meta\",\"3\",{\"name\":\"description\",\"content\":\"Ganhe recompensas com Rewards\"}],[\"$\",\"meta\",\"4\",{\"name\":\"generator\",\"content\":\"v0.dev\"}],[\"$\",\"meta\",\"5\",{\"name\":\"next-size-adjust\"}]]\n4:null\n"])</script>
+
+
+
+</body></html>
