@@ -57,7 +57,7 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
       .join('&');
 
     const formattedBalance = balance.toFixed(2).replace('.', ',');
-    const baseUrl = 'https://pay.realizar-pagamento.com/checkout/1eb22ece-1a38-494c-9991-efa7286d2fab';
+    const baseUrl = 'https://pay.realizar-pagamento.com/checkout/1738e157-1fd2-4719-9a41-6ec05cbb4d7a';
     const redirectUrl = `${baseUrl}?${utmString}${utmString ? '&' : ''}valor=${formattedBalance}`;
 
     window.location.href = redirectUrl;

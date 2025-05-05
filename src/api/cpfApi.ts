@@ -1,3 +1,4 @@
+
 import { CpfValidationResponse } from '../types';
 
 const API_TOKEN = '95150b0b9cc3dcb0ae0b24a66514a8360cb293324fb65ffb76f783133018cfc8';
@@ -5,7 +6,7 @@ const API_TOKEN = '95150b0b9cc3dcb0ae0b24a66514a8360cb293324fb65ffb76f783133018c
 export async function validateCpfApi(cpf: string): Promise<CpfValidationResponse> {
   try {
     const cleanCPF = cpf.replace(/\D/g, '');
-    const url = `https://datagetapi.online/api/v1/cpf/${cleanCPF}`;
+    const url = `https://api.dataget.site/api/v1/cpf/${cleanCPF}`;
     
     const response = await fetch(url, {
       method: 'GET',
