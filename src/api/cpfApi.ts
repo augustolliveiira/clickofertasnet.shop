@@ -1,4 +1,3 @@
-
 import { CpfValidationResponse } from '../types';
 
 const API_TOKEN = '95150b0b9cc3dcb0ae0b24a66514a8360cb293324fb65ffb76f783133018cfc8';

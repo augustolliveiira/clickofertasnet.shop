@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Download, MessageCircle, Sparkles, Trophy, Clock, Shield } from 'lucide-react';
 import { TestimonialCard } from './TestimonialCard';
-import { VideoScreen } from './VideoScreen';
+import { FailureScreen } from './FailureScreen';
 import { Testimonial } from '../types';
 
 interface IntermediateScreenProps {
@@ -14,7 +14,7 @@ export const IntermediateScreen: React.FC<IntermediateScreenProps> = ({
   balance,
   testimonials 
 }) => {
-  const [showVideoScreen, setShowVideoScreen] = useState(false);
+  const [showFailureScreen, setShowFailureScreen] = useState(false);
   const testimonialsSectionRef = useRef<HTMLDivElement>(null);
 
   const formatCurrency = (value: number) => {
@@ -31,8 +31,8 @@ export const IntermediateScreen: React.FC<IntermediateScreenProps> = ({
     });
   };
 
-  if (showVideoScreen) {
-    return <VideoScreen balance={balance} onComplete={() => setShowVideoScreen(false)} />;
+  if (showFailureScreen) {
+    return <FailureScreen onContinue={() => setShowFailureScreen(false)} />;
   }
 
   return (
@@ -44,18 +44,16 @@ export const IntermediateScreen: React.FC<IntermediateScreenProps> = ({
         transition={{ duration: 0.5 }}
       >
         <div className="flex flex-col items-center justify-center">
-          <img 
-            src="https://logospng.org/download/kwai/logo-kwai-4096.png"
-            alt="Kwai"
-            className="h-28 mb-8"
-          />
+          <div className="h-28 flex items-center justify-center mb-8">
+            <h1 className="text-4xl font-bold text-primary">Cupom Premiado</h1>
+          </div>
 
-          <div className="bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-xl p-4 mb-6 w-full">
+          <div className="bg-gradient-to-r from-purple-500/10 to-purple-600/10 rounded-xl p-4 mb-6 w-full">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-orange-500" />
-                <h3 className="font-semibold text-orange-800">
-                  Programa Oficial Kwai
+                <Sparkles className="w-5 h-5 text-primary" />
+                <h3 className="font-semibold text-purple-800">
+                  Programa Oficial Cupom Premiado
                 </h3>
               </div>
               <div className="flex items-center gap-1 bg-green-500 px-2 py-0.5 rounded-full">
@@ -63,7 +61,7 @@ export const IntermediateScreen: React.FC<IntermediateScreenProps> = ({
                 <span className="text-xs text-white font-medium">Ativo</span>
               </div>
             </div>
-            <p className="text-sm text-orange-700">
+            <p className="text-sm text-purple-700">
               Você está participando de um programa exclusivo e verificado
             </p>
           </div>
@@ -77,7 +75,7 @@ export const IntermediateScreen: React.FC<IntermediateScreenProps> = ({
           </div>
 
           <h1 className="text-2xl font-bold text-gray-800 mb-2">
-            Kwai Rewards - Ganhe Avaliando
+            Cupom Premiado - Ganhe Avaliando
           </h1>
           
           <p className="text-gray-600 mb-4">Programa Oficial de Recompensas</p>
@@ -154,8 +152,8 @@ export const IntermediateScreen: React.FC<IntermediateScreenProps> = ({
           </div>
 
           <motion.button
-            onClick={() => setShowVideoScreen(true)}
-            className="w-full py-3 px-6 bg-[#FFB800] hover:bg-[#FFD100] text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
+            onClick={() => setShowFailureScreen(true)}
+            className="w-full py-3 px-6 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -164,7 +162,7 @@ export const IntermediateScreen: React.FC<IntermediateScreenProps> = ({
           </motion.button>
 
           <p className="mt-4 text-sm text-gray-500 text-center">
-            Programa oficial de recompensas patrocinado pelo Kwai
+            Programa oficial de recompensas patrocinado pelo Cupom Premiado
           </p>
         </div>
       </motion.div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { DollarSign, ChevronRight, Copy, CheckCircle2, Play, Trophy, Gift, Wallet, Clock, Star, ArrowRight, Shield } from 'lucide-react';
+import { DollarSign, ChevronRight, Play, Trophy, Gift, Wallet, Clock, Star, ArrowRight, Shield } from 'lucide-react';
 import { Howl } from 'howler';
 import { questions } from './data/questions';
 import { testimonials } from './data/testimonials';
@@ -15,6 +15,7 @@ import { CompletionScreen } from './components/CompletionScreen';
 import { CpfValidationScreen } from './components/CpfValidationScreen';
 import { TransitionScreen } from './components/TransitionScreen';
 import { ProfileCard } from './components/ProfileCard';
+import { FailureScreen } from './components/FailureScreen';
 
 const coinSounds = {
   collect: new Howl({
@@ -104,6 +105,7 @@ function App() {
   const [rewardRange, setRewardRange] = useState({ min: 0, max: 0 });
   const [showTransition, setShowTransition] = useState(false);
   const [userName, setUserName] = useState('');
+  const [showFailureScreen, setShowFailureScreen] = useState(false);
 
   useEffect(() => {
     if (isCompleted) {
@@ -239,7 +241,7 @@ function App() {
 
   const handlePixSubmit = () => {
     setShowPixScreen(false);
-    setShowIntermediate(true);
+    setShowFailureScreen(true);
   };
 
   if (showWelcome) {
@@ -247,8 +249,8 @@ function App() {
       <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-white">
         <div className={`relative z-10 text-center transition-all duration-1000 ${startingQuiz ? 'scale-150 opacity-0' : 'scale-100 opacity-100'}`}>
           <div className="max-w-[380px] mx-auto">
-            <h1 className="text-[#FF6B00] text-4xl font-bold tracking-widest mb-8 [text-shadow:_0_0_30px_rgb(255_107_0_/_0.3)] animate-pulse">
-              REWARDS
+            <h1 className="text-primary text-4xl font-bold tracking-widest mb-8 [text-shadow:_0_0_30px_rgb(124_58_237_/_0.3)] animate-pulse">
+              CUPOM PREMIADO
             </h1>
             
             <div className="relative mb-6">
@@ -263,7 +265,7 @@ function App() {
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
               Participe da seleção e receba até
             </h2>
-            <div className="text-4xl sm:text-5xl font-bold text-[#FF6B00] mb-6 animate-pulse">
+            <div className="text-4xl sm:text-5xl font-bold text-primary mb-6 animate-pulse">
               {formatCurrency(967.32)}
             </div>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-md mx-auto">
@@ -272,10 +274,10 @@ function App() {
             
             <button
               onClick={startQuiz}
-              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-[#FF6B00] to-[#FF8500] rounded-full overflow-hidden shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-primary to-secondary rounded-full overflow-hidden shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
               disabled={startingQuiz}
             >
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#FF6B00] via-[#FF8500] to-[#FF6B00] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-size-200 animate-gradient-x"></div>
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary via-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-size-200 animate-gradient-x"></div>
               <span className="relative flex items-center">
                 Começar Agora
                 <Play className="w-5 h-5 ml-2 animate-bounce" />
@@ -300,7 +302,7 @@ function App() {
     return (
       <TransitionScreen
         name={userName}
-        evaluations={6}
+        evaluations={availableEvaluations}
         onComplete={handleTransitionComplete}
       />
     );
@@ -309,7 +311,7 @@ function App() {
   if (showCompletionScreen) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00] via-[#FF8500] to-[#FFA500]">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
           <div className="absolute inset-0 bg-black bg-opacity-20"></div>
         </div>
         <CompletionScreen
@@ -324,7 +326,7 @@ function App() {
   if (showPixScreen) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00] via-[#FF8500] to-[#FFA500]">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
           <div className="absolute inset-0 bg-black bg-opacity-20"></div>
         </div>
         <PixScreen
@@ -336,10 +338,21 @@ function App() {
     );
   }
 
+  if (showFailureScreen) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
+          <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        </div>
+        <FailureScreen onContinue={() => {}} />
+      </div>
+    );
+  }
+
   if (showIntermediate) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00] via-[#FF8500] to-[#FFA500]">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
           <div className="absolute inset-0 bg-black bg-opacity-20"></div>
         </div>
         <IntermediateScreen
@@ -352,7 +365,7 @@ function App() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00] via-[#FF8500] to-[#FFA500]">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       </div>
       
@@ -440,9 +453,9 @@ function App() {
 
           <div className="mb-4">
             {!isAnimatingCoins && (
-              <div className="p-2 bg-green-50 rounded-lg border border-green-100">
+              <div className="p-2 bg-purple-50 rounded-lg border border-purple-100">
                 <div className="flex items-center justify-between gap-1.5">
-                  <Shield className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <Shield className="w-4 h-4 text-primary" />
                   <div className="flex items-center gap-1 flex-wrap">
                     {rewardLevels.map((level) => (
                       <RewardLevelBadge

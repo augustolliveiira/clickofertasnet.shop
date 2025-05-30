@@ -118,7 +118,7 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit, userCpf
       </motion.p>
 
       <motion.div
-        className="text-4xl font-bold text-[#FFB800] mb-8"
+        className="text-4xl font-bold text-primary mb-8"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.6 }}
@@ -157,7 +157,7 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit, userCpf
             <button
               className={`py-3 px-4 rounded-lg font-medium transition-all duration-300 ${
                 pixType === 'cpf' 
-                  ? 'bg-[#FFB800] text-white shadow-lg scale-105' 
+                  ? 'bg-primary text-white shadow-lg scale-105' 
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
               onClick={() => setPixType('cpf')}
@@ -167,7 +167,7 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit, userCpf
             <button
               className={`py-3 px-4 rounded-lg font-medium transition-all duration-300 ${
                 pixType === 'telefone' 
-                  ? 'bg-[#FFB800] text-white shadow-lg scale-105' 
+                  ? 'bg-primary text-white shadow-lg scale-105' 
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
               onClick={() => setPixType('telefone')}
@@ -177,7 +177,7 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit, userCpf
             <button
               className={`py-3 px-4 rounded-lg font-medium transition-all duration-300 ${
                 pixType === 'email' 
-                  ? 'bg-[#FFB800] text-white shadow-lg scale-105' 
+                  ? 'bg-primary text-white shadow-lg scale-105' 
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
               onClick={() => setPixType('email')}
@@ -197,7 +197,7 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit, userCpf
               value={pixKey}
               onChange={handlePixKeyChange}
               placeholder={getPlaceholder()}
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#FFB800] focus:outline-none text-lg"
+              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none text-lg"
               maxLength={pixType === 'cpf' ? 14 : pixType === 'telefone' ? 15 : undefined}
             />
             <button
@@ -216,7 +216,7 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit, userCpf
         className={`w-full py-4 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
           !isValidKey()
             ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-            : 'bg-gradient-to-r from-[#FFB800] to-[#FFD100] text-white hover:shadow-lg hover:scale-105'
+            : 'bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg hover:scale-105'
         }`}
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

@@ -79,7 +79,7 @@ export const CpfValidationScreen: React.FC<CpfValidationScreenProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-[#FF6B00] via-[#FF8500] to-[#FFA500]">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-primary via-secondary to-purple-400">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       </div>
@@ -101,7 +101,7 @@ export const CpfValidationScreen: React.FC<CpfValidationScreenProps> = ({
             >
               <div className="text-center">
                 <motion.div 
-                  className="w-20 h-20 bg-gradient-to-br from-[#FF6B00] to-[#FFA500] rounded-full mx-auto mb-6 flex items-center justify-center"
+                  className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full mx-auto mb-6 flex items-center justify-center"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
@@ -115,7 +115,7 @@ export const CpfValidationScreen: React.FC<CpfValidationScreenProps> = ({
                 <p className="text-gray-600 mb-2">
                   Digite seu CPF para descobrir quanto você pode ganhar hoje
                 </p>
-                <div className="text-2xl font-bold text-[#FF6B00] animate-pulse">
+                <div className="text-2xl font-bold text-primary animate-pulse">
                   Até R$ 967,32
                 </div>
               </div>
@@ -132,7 +132,7 @@ export const CpfValidationScreen: React.FC<CpfValidationScreenProps> = ({
                     placeholder="000.000.000-00"
                     className={`w-full px-4 py-3 rounded-lg border-2 ${
                       error ? 'border-red-300' : 'border-gray-200'
-                    } focus:outline-none focus:border-[#FF6B00] text-lg transition-colors duration-200`}
+                    } focus:outline-none focus:border-primary text-lg transition-colors duration-200`}
                     maxLength={14}
                   />
                   {error && (
@@ -161,7 +161,7 @@ export const CpfValidationScreen: React.FC<CpfValidationScreenProps> = ({
                     className={`flex-1 py-3 px-4 rounded-lg font-medium text-white flex items-center justify-center gap-2 group
                       ${cpf.length < 14 || isValidating
                         ? 'bg-gray-300 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-[#FF6B00] to-[#FF8500] hover:shadow-lg transform hover:scale-105 transition-all duration-300'
+                        : 'bg-gradient-to-r from-primary to-secondary hover:shadow-lg transform hover:scale-105 transition-all duration-300'
                       }`}
                   >
                     Descobrir Agora
@@ -186,18 +186,18 @@ export const CpfValidationScreen: React.FC<CpfValidationScreenProps> = ({
             >
               <div className="relative w-24 h-24 mx-auto mb-6">
                 <motion.div
-                  className="absolute inset-0 rounded-full border-4 border-[#FF6B00]/20"
+                  className="absolute inset-0 rounded-full border-4 border-primary/20"
                   initial={{ rotate: 0 }}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 />
                 <motion.div
-                  className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#FF6B00]"
+                  className="absolute inset-0 rounded-full border-4 border-transparent border-t-primary"
                   initial={{ rotate: 0 }}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
                 />
-                <Loader2 className="w-12 h-12 text-[#FF6B00] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                <Loader2 className="w-12 h-12 text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
               </div>
               
               <h3 className="text-2xl font-semibold text-gray-800 mb-2">
@@ -219,16 +219,16 @@ export const CpfValidationScreen: React.FC<CpfValidationScreenProps> = ({
             >
               <div className="relative w-32 h-32 mx-auto mb-6">
                 <motion.div
-                  className="absolute inset-0 rounded-full border-4 border-[#FF6B00]/20"
+                  className="absolute inset-0 rounded-full border-4 border-primary/20"
                 />
                 <motion.div
-                  className="absolute inset-0 rounded-full border-4 border-[#FF6B00]"
+                  className="absolute inset-0 rounded-full border-4 border-primary"
                   style={{
                     clipPath: `inset(0 ${100 - progress}% 0 0)`
                   }}
                 />
                 <motion.div
-                  className="absolute inset-4 bg-gradient-to-br from-[#FF6B00] to-[#FFA500] rounded-full flex items-center justify-center"
+                  className="absolute inset-4 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center"
                   animate={{
                     scale: [1, 1.1, 1],
                     rotate: [0, 360]
@@ -250,7 +250,7 @@ export const CpfValidationScreen: React.FC<CpfValidationScreenProps> = ({
                 Analisando oportunidades disponíveis...
               </p>
               <motion.div
-                className="mt-4 text-lg font-semibold text-[#FF6B00]"
+                className="mt-4 text-lg font-semibold text-primary"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}

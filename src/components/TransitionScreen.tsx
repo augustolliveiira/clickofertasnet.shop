@@ -15,7 +15,7 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
 }) => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00] via-[#FF8500] to-[#FFA500]">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       </div>
 
@@ -25,22 +25,20 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <img 
-          src="https://logospng.org/download/kwai/logo-kwai-4096.png" 
-          alt="Kwai" 
-          className="h-20 mx-auto mb-6"
-        />
+        <div className="h-20 flex items-center justify-center mb-6">
+          <h1 className="text-3xl font-bold text-primary">Cupom Premiado</h1>
+        </div>
 
         <motion.div
-          className="bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-xl p-4 mb-6"
+          className="bg-gradient-to-r from-purple-500/10 to-purple-600/10 rounded-xl p-4 mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-orange-500" />
-              <span className="font-semibold text-orange-800">Programa Oficial Kwai</span>
+              <Sparkles className="w-5 h-5 text-primary" />
+              <span className="font-semibold text-purple-800">Programa Oficial Cupom Premiado</span>
             </div>
             <div className="flex items-center gap-1 bg-green-500 px-2 py-0.5 rounded-full">
               <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
@@ -56,14 +54,14 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
           transition={{ duration: 0.5 }}
         >
           <motion.div 
-            className="w-24 h-24 bg-gradient-to-br from-orange-100 to-orange-50 rounded-full mx-auto mb-4 flex items-center justify-center relative"
+            className="w-24 h-24 bg-gradient-to-br from-purple-100 to-purple-50 rounded-full mx-auto mb-4 flex items-center justify-center relative"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
           >
-            <Trophy className="w-12 h-12 text-[#FF6B00]" />
+            <Trophy className="w-12 h-12 text-primary" />
             <motion.div
-              className="absolute -right-2 -top-2 w-8 h-8 bg-[#FF6B00] rounded-full flex items-center justify-center"
+              className="absolute -right-2 -top-2 w-8 h-8 bg-primary rounded-full flex items-center justify-center"
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ delay: 0.5 }}
@@ -117,7 +115,7 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
                   {Array.from({ length: evaluations }).map((_, i) => (
                     <div
                       key={i}
-                      className="w-2 h-2 rounded-full bg-orange-500"
+                      className="w-2 h-2 rounded-full bg-primary"
                     />
                   ))}
                 </div>
@@ -137,7 +135,7 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
 
         <motion.button
           onClick={onComplete}
-          className="w-full py-4 px-6 bg-gradient-to-r from-[#FF6B00] to-[#FF8500] text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-4"
+          className="w-full py-4 px-6 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-4"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1 }}
@@ -154,7 +152,7 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
         >
-          Programa oficial de recompensas patrocinado pelo Kwai
+          Programa oficial de recompensas patrocinado pelo Cupom Premiado
         </motion.p>
       </motion.div>
     </div>
