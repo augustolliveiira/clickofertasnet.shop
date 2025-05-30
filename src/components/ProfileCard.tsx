@@ -30,7 +30,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
       transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
     >
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B00] to-[#FFA500] rounded-full flex items-center justify-center">
+        <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
           <User className="w-6 h-6 text-white" />
         </div>
         
@@ -40,7 +40,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
               {name.split(' ')[0]}
             </h3>
             <div className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-[#FFB800] fill-current" />
+              <Star className="w-4 h-4 text-primary fill-current" />
               <span className="text-sm text-gray-500">
                 {remainingQuestions} de {totalQuestions} avaliações
               </span>
@@ -48,8 +48,8 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
           </div>
           
           <div className="flex items-center gap-2 mt-1">
-            <DollarSign className="w-4 h-4 text-[#FFB800]" />
-            <span className="font-semibold text-[#FFB800]">
+            <DollarSign className="w-4 h-4 text-primary" />
+            <span className="font-semibold text-primary">
               {formatCurrency(balance)}
             </span>
           </div>
