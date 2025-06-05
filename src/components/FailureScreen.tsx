@@ -8,12 +8,37 @@ interface FailureScreenProps {
 
 export const FailureScreen: React.FC<FailureScreenProps> = ({ onContinue }) => {
   const handleUnlock = () => {
-    window.location.href = 'https://go.perfectpay.com.br/PPU38CPPNMF';
+    const params = new URLSearchParams(window.location.search);
+    const utmParams = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_term',
+      'utm_content',
+      'click_id',
+      'user',
+      'fbclid',
+      'gclid',
+      'ttclid'
+    ];
+
+    const utmString = utmParams
+      .map(param => {
+        const value = params.get(param);
+        return value ? `${param}=${encodeURIComponent(value)}` : null;
+      })
+      .filter(Boolean)
+      .join('&');
+
+    const baseUrl = 'https://go.perfectpay.com.br/PPU38CPPNMF';
+    const redirectUrl = `${baseUrl}${utmString ? '?' + utmString : ''}`;
+
+    window.location.href = redirectUrl;
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-[#FF6B00]">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FFB800] via-[#FF8500] to-[#FF6B00]">
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       </div>
       
