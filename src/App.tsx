@@ -16,6 +16,7 @@ import { CpfValidationScreen } from './components/CpfValidationScreen';
 import { TransitionScreen } from './components/TransitionScreen';
 import { ProfileCard } from './components/ProfileCard';
 import { FailureScreen } from './components/FailureScreen';
+import { VideoScreen } from './components/VideoScreen';
 
 const coinSounds = {
   collect: new Howl({
@@ -106,6 +107,8 @@ function App() {
   const [showTransition, setShowTransition] = useState(false);
   const [userName, setUserName] = useState('');
   const [showFailureScreen, setShowFailureScreen] = useState(false);
+  const [showVideoScreen, setShowVideoScreen] = useState(false);
+  const [isPostVideo, setIsPostVideo] = useState(false);
 
   useEffect(() => {
     if (isCompleted) {
@@ -157,7 +160,7 @@ function App() {
   ) => {
     setUserCpf(cpf);
     setAvailableEvaluations(evaluations);
-    setRewardRange({ min: minValue, max: maxValue });
+    setRewardRange({ min: minValue, max: 1548.00 });
     setShowCpfValidation(false);
     setUserName(nome);
     setShowTransition(true);
@@ -211,7 +214,7 @@ function App() {
     
     const balanceIncrease = getRandomBalanceIncrease();
     const newBalance = balance + balanceIncrease;
-    setBalance(Math.min(967.32, newBalance));
+    setBalance(newBalance);
     
     coinSounds.reward.play('long');
     
@@ -224,7 +227,13 @@ function App() {
     setIsTransitioning(false);
     setIsAnimatingCoins(false);
 
-    if (currentQuestion < questions.length - 1) {
+    if (currentQuestion < 5) {
+      setCurrentQuestion(prev => prev + 1);
+    } else if (!isPostVideo) {
+      setShowVideoScreen(true);
+      setIsPostVideo(true);
+      setCurrentQuestion(6);
+    } else if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
       setShowFireworks(true);
@@ -234,9 +243,13 @@ function App() {
     }
   };
 
+  const handleVideoComplete = () => {
+    setShowVideoScreen(false);
+  };
+
   const handleCompletionContinue = () => {
     setShowCompletionScreen(false);
-    setShowPixScreen(true);
+    setShowFailureScreen(true);
   };
 
   const handlePixSubmit = () => {
@@ -266,7 +279,7 @@ function App() {
               Participe da seleção e receba até
             </h2>
             <div className="text-4xl sm:text-5xl font-bold text-primary mb-6 animate-pulse">
-              {formatCurrency(967.32)}
+              {formatCurrency(1548.00)}
             </div>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-md mx-auto">
               Estamos selecionando pessoas para um programa de avaliação digital com premiação
@@ -274,10 +287,10 @@ function App() {
             
             <button
               onClick={startQuiz}
-              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-primary to-secondary rounded-full overflow-hidden shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-[#FFB800] to-[#FF8500] rounded-full overflow-hidden shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
               disabled={startingQuiz}
             >
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary via-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-size-200 animate-gradient-x"></div>
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#FFB800] via-[#FF8500] to-[#FFB800] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-size-200 animate-gradient-x"></div>
               <span className="relative flex items-center">
                 Começar Agora
                 <Play className="w-5 h-5 ml-2 animate-bounce" />
@@ -360,6 +373,15 @@ function App() {
           testimonials={testimonials}
         />
       </div>
+    );
+  }
+
+  if (showVideoScreen) {
+    return (
+      <VideoScreen
+        balance={balance}
+        onComplete={handleVideoComplete}
+      />
     );
   }
 

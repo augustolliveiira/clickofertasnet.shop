@@ -65,17 +65,17 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
       transition={{ duration: 0.5 }}
     >
       <div className="h-20 flex items-center justify-center mb-6">
-        <h1 className="text-3xl font-bold text-primary">Cupom Premiado</h1>
+        <h1 className="text-3xl font-bold text-[#FFB800]">Cupom Premiado</h1>
       </div>
 
-      <div className="bg-gradient-to-r from-purple-500/10 to-purple-600/10 rounded-xl p-4 mb-6">
+      <div className="bg-gradient-to-r from-[#FFB800]/10 to-[#FF8500]/10 rounded-xl p-4 mb-6">
         <div className="flex items-center justify-center gap-2 mb-2">
-          <Sparkles className="w-5 h-5 text-primary" />
-          <h3 className="font-semibold text-purple-800">
+          <Sparkles className="w-5 h-5 text-[#FFB800]" />
+          <h3 className="font-semibold text-[#FF8500]">
             Programa Verificado Cupom Premiado
           </h3>
         </div>
-        <p className="text-sm text-purple-700">
+        <p className="text-sm text-[#FF8500]/70">
           Seu saque está garantido pela plataforma oficial
         </p>
       </div>
@@ -100,7 +100,7 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
             Parabéns! 🎉
           </motion.h1>
           <motion.p 
-            className="text-gray-600"
+            className="text-gray-500"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -117,7 +117,7 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
       </div>
 
       <motion.div
-        className="text-4xl font-bold text-primary mb-6"
+        className="text-4xl font-bold text-[#FFB800] mb-6"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.7 }}
@@ -131,17 +131,17 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
           return (
             <motion.div
               key={index}
-              className="flex items-center gap-3 bg-purple-50 p-3 rounded-lg"
+              className="flex items-center gap-3 bg-[#FFB800]/5 p-3 rounded-lg"
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.8 + index * 0.1 }}
             >
-              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                <Icon className="w-5 h-5 text-primary" />
+              <div className="w-10 h-10 bg-[#FFB800]/10 rounded-full flex items-center justify-center">
+                <Icon className="w-5 h-5 text-[#FFB800]" />
               </div>
               <div className="flex-1 text-left">
                 <h4 className="font-medium text-gray-800">{achievement.title}</h4>
-                <p className="text-sm text-gray-600">{achievement.description}</p>
+                <p className="text-sm text-gray-500">{achievement.description}</p>
               </div>
               <Check className="w-5 h-5 text-green-500" />
             </motion.div>
@@ -155,16 +155,16 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
           return (
             <motion.div
               key={index}
-              className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-xl text-center"
+              className="bg-gradient-to-br from-[#FFB800]/5 to-[#FF8500]/10 p-3 rounded-xl text-center"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.1 + index * 0.1 }}
             >
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto mb-2">
-                <Icon className="w-5 h-5 text-primary" />
+                <Icon className="w-5 h-5 text-[#FFB800]" />
               </div>
-              <h4 className="font-medium text-purple-800 text-sm mb-1">{benefit.title}</h4>
-              <p className="text-xs text-purple-600">{benefit.description}</p>
+              <h4 className="font-medium text-[#FF8500] text-sm mb-1">{benefit.title}</h4>
+              <p className="text-xs text-[#FF8500]/60">{benefit.description}</p>
             </motion.div>
           );
         })}
@@ -189,7 +189,7 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
 
       <motion.button
         onClick={onComplete}
-        className="w-full py-4 px-6 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-4"
+        className="w-full py-4 px-6 bg-gradient-to-r from-[#FFB800] to-[#FF8500] text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-4"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -197,7 +197,7 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
         <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
       </motion.button>
 
-      <p className="mt-4 text-sm text-gray-500">
+      <p className="mt-4 text-sm text-gray-400">
         Programa oficial de recompensas patrocinado pelo Cupom Premiado
       </p>
     </motion.div>

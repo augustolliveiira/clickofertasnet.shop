@@ -78,5 +78,58 @@ export const questions: Question[] = [
     image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80",
     points: 205,
     feedback: "Parabéns! Você completou todas as perguntas! 🎉"
+  },
+  // Additional questions after video
+  {
+    text: "O que você achou do conteúdo do vídeo?",
+    options: [
+      "Muito interessante",
+      "Interessante",
+      "Regular",
+      "Pouco interessante"
+    ],
+    icon: "🎥",
+    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&q=80",
+    points: 225,
+    feedback: "Obrigado pela sua avaliação! 📺"
+  },
+  {
+    text: "O conteúdo foi apresentado de forma clara?",
+    options: [
+      "Muito claro",
+      "Claro",
+      "Mais ou menos",
+      "Pouco claro"
+    ],
+    icon: "📝",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80",
+    points: 245,
+    feedback: "Sua opinião é muito importante! 🎯"
+  },
+  {
+    text: "Você recomendaria este conteúdo?",
+    options: [
+      "Sim, com certeza",
+      "Provavelmente sim",
+      "Talvez",
+      "Provavelmente não"
+    ],
+    icon: "👍",
+    image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80",
+    points: 265,
+    feedback: "Ótimo! Estamos quase terminando! ⭐"
+  },
+  {
+    text: "Como você avalia a qualidade do vídeo?",
+    options: [
+      "Excelente",
+      "Muito boa",
+      "Boa",
+      "Regular"
+    ],
+    icon: "🎬",
+    image: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=1200&q=80",
+    points: 285,
+    feedback: "Parabéns! Você completou todas as avaliações! 🎉"
   }
 ];

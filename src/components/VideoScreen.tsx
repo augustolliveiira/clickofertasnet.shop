@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { UnlockKeyhole, DollarSign } from 'lucide-react';
+import { Timer } from './Timer';
 
 interface VideoScreenProps {
   balance: number;
@@ -10,6 +11,19 @@ interface VideoScreenProps {
 export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete }) => {
   const [timeLeft, setTimeLeft] = useState(60);
   const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    // Inject the video player script
+    const script = document.createElement('script');
+    script.src = "https://scripts.converteai.net/0335ec20-c9d4-4221-a36e-428ccf9162ce/players/6840b3c38121e61ec3ee84de/player.js";
+    script.async = true;
+    document.head.appendChild(script);
+
+    return () => {
+      // Cleanup script when component unmounts
+      document.head.removeChild(script);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -33,57 +47,27 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
     }).format(value);
   };
 
-  const handleUnlock = () => {
-    const params = new URLSearchParams(window.location.search);
-    const utmParams = [
-      'utm_source',
-      'utm_medium',
-      'utm_campaign',
-      'utm_term',
-      'utm_content',
-      'click_id',
-      'user',
-      'fbclid',
-      'gclid',
-      'ttclid'
-    ];
-
-    const utmString = utmParams
-      .map(param => {
-        const value = params.get(param);
-        return value ? `${param}=${encodeURIComponent(value)}` : null;
-      })
-      .filter(Boolean)
-      .join('&');
-
-    const formattedBalance = balance.toFixed(2).replace('.', ',');
-    const baseUrl = 'https://pay.realizar-pagamento.com/checkout/1f9545aa-1b72-42e5-b38d-5683cec1fd8c';
-    const redirectUrl = `${baseUrl}?${utmString}${utmString ? '&' : ''}valor=${formattedBalance}`;
-
-    window.location.href = redirectUrl;
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00] via-[#FF8500] to-[#FFA500]">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-[#FF6B00]">
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       </div>
       
       <motion.div 
-        className="bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl p-6 max-w-md w-full relative z-10"
+        className="bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl p-8 max-w-md w-full relative z-10"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         <div className="text-center">
-          <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-[#FF6B00] to-[#FF8500] p-4 rounded-xl shadow-lg">
+          <div className="flex items-center justify-between mb-6 bg-gradient-to-r from-primary to-secondary p-4 rounded-xl shadow-lg">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                 <DollarSign className="w-6 h-6 text-white" />
               </div>
               <div className="text-left">
                 <h1 className="text-white text-lg font-bold">
-                  REWARDS
+                  CUPOM PREMIADO
                 </h1>
                 <p className="text-white/80 text-sm">
                   Saldo Disponível
@@ -96,7 +80,7 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
           </div>
 
           <div className="w-full bg-gray-50 rounded-lg h-2 mb-6">
-            <div className="h-full bg-[#FFB800] rounded-lg w-full animate-pulse"></div>
+            <div className="h-full bg-primary rounded-lg w-full animate-pulse"></div>
           </div>
 
           <h2 className="text-xl font-bold text-gray-800 mb-2">
@@ -104,21 +88,28 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
           </h2>
           
           <p className="text-gray-600 text-sm mb-6">
-            Veja como liberar seu saque assistindo a esse rápido vídeo de 30 segundos:
+            Veja como liberar seu saque assistindo a esse rápido vídeo:
           </p>
 
           <div className="relative mb-6 rounded-xl overflow-hidden">
-            <div id="ifr_6801bf81275d8c3fa5d21fb9_wrapper" style={{ margin: '0 auto', width: '100%' }}>
-              <div style={{ padding: '177.77777777777777% 0 0 0', position: 'relative' }} id="ifr_6801bf81275d8c3fa5d21fb9_aspect">
-                <iframe 
-                  frameBorder="0" 
-                  allowFullScreen 
-                  src="https://scripts.converteai.net/0335ec20-c9d4-4221-a36e-428ccf9162ce/players/6801bf81275d8c3fa5d21fb9/embed.html" 
-                  id="ifr_6801bf81275d8c3fa5d21fb9" 
-                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                  referrerPolicy="origin"
-                />
-              </div>
+            <div id="vid_6840b3c38121e61ec3ee84de" style={{ position: 'relative', width: '100%', padding: '56.25% 0 0' }}>
+              <img 
+                id="thumb_6840b3c38121e61ec3ee84de" 
+                src="https://images.converteai.net/0335ec20-c9d4-4221-a36e-428ccf9162ce/players/6840b3c38121e61ec3ee84de/thumbnail.jpg" 
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                alt="thumbnail" 
+              />
+              <div 
+                id="backdrop_6840b3c38121e61ec3ee84de" 
+                style={{ 
+                  WebkitBackdropFilter: 'blur(5px)', 
+                  backdropFilter: 'blur(5px)', 
+                  position: 'absolute', 
+                  top: 0, 
+                  height: '100%', 
+                  width: '100%' 
+                }}
+              ></div>
             </div>
           </div>
 
@@ -129,11 +120,11 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
               animate={{ opacity: 1 }}
             >
               <div className="text-gray-500 text-lg">
-                Aguarde: <span className="font-bold text-[#FFB800]">{timeLeft}</span> segundos...
+                Aguarde: <span className="font-bold text-primary">{timeLeft}</span> segundos...
               </div>
               <div className="w-full bg-gray-200 h-1 mt-2 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-[#FFB800]" 
+                  className="h-full bg-primary" 
                   style={{ width: `${(timeLeft / 60) * 100}%` }}
                 />
               </div>
@@ -142,27 +133,27 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
 
           {showButton && (
             <motion.button
-              onClick={handleUnlock}
-              className="w-full py-4 px-6 bg-gradient-to-r from-[#FFB800] to-[#FFD100] text-white rounded-lg font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-6"
+              onClick={onComplete}
+              className="w-full py-4 px-6 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-6"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <UnlockKeyhole className="w-6 h-6" />
-              DESBLOQUEAR AGORA
+              CONTINUAR AVALIAÇÃO
             </motion.button>
           )}
 
           <div className="w-full h-[1px] bg-gray-200 mb-4"></div>
 
           <motion.div
-            className="bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-lg border border-yellow-100"
+            className="bg-gradient-to-r from-[#FFB800]/10 to-[#FF8500]/10 p-4 rounded-lg border border-[#FFB800]/20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            <p className="text-sm font-medium text-yellow-800">
+            <p className="text-sm font-medium text-[#FF8500]">
               Concorra a um bônus adicional
             </p>
           </motion.div>
