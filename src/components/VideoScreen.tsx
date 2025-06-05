@@ -78,10 +78,6 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
             </div>
           </div>
 
-          <div className="w-full bg-gray-50 rounded-lg h-2 mb-6">
-            <div className="h-full bg-primary rounded-lg" style={{ width: `${(timeLeft / 555) * 100}%` }}></div>
-          </div>
-
           <h2 className="text-xl font-bold text-gray-800 mb-2">
             DESBLOQUEIO DE SAQUE
           </h2>
@@ -111,21 +107,6 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
               ></div>
             </div>
           </div>
-
-          {!showButton && timeLeft > 0 && (
-            <motion.div
-              className="bg-gray-50 rounded-lg p-4 text-center mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              <div className="w-full bg-gray-200 h-1 mt-2 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-primary" 
-                  style={{ width: `${(timeLeft / 555) * 100}%` }}
-                />
-              </div>
-            </motion.div>
-          )}
 
           {showButton && (
             <motion.button
