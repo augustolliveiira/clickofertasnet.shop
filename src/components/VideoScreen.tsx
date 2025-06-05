@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { UnlockKeyhole, DollarSign } from 'lucide-react';
-import { Timer } from './Timer';
 
 interface VideoScreenProps {
   balance: number;
@@ -9,7 +8,7 @@ interface VideoScreenProps {
 }
 
 export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete }) => {
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(555); // 9 minutes and 15 seconds
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -80,7 +79,7 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
           </div>
 
           <div className="w-full bg-gray-50 rounded-lg h-2 mb-6">
-            <div className="h-full bg-primary rounded-lg w-full animate-pulse"></div>
+            <div className="h-full bg-primary rounded-lg" style={{ width: `${(timeLeft / 555) * 100}%` }}></div>
           </div>
 
           <h2 className="text-xl font-bold text-gray-800 mb-2">
@@ -119,13 +118,10 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              <div className="text-gray-500 text-lg">
-                Aguarde: <span className="font-bold text-primary">{timeLeft}</span> segundos...
-              </div>
               <div className="w-full bg-gray-200 h-1 mt-2 rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-primary" 
-                  style={{ width: `${(timeLeft / 60) * 100}%` }}
+                  style={{ width: `${(timeLeft / 555) * 100}%` }}
                 />
               </div>
             </motion.div>
