@@ -8,7 +8,7 @@ interface VideoScreenProps {
 }
 
 export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete }) => {
-  const [timeLeft, setTimeLeft] = useState(555); // 9 minutes and 15 seconds
+  const [timeLeft, setTimeLeft] = useState(10); // Alterado de 555 para 10 segundos
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {

