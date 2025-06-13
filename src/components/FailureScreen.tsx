@@ -8,21 +8,49 @@ interface FailureScreenProps {
 
 export const FailureScreen: React.FC<FailureScreenProps> = ({ onContinue }) => {
   const handleUnlock = () => {
+    // Captura todos os parâmetros da URL atual
     const params = new URLSearchParams(window.location.search);
-    const utmParams = [
+    
+    // Lista de parâmetros UTM e de tracking que devem ser preservados
+    const trackingParams = [
       'utm_source',
-      'utm_medium',
+      'utm_medium', 
       'utm_campaign',
       'utm_term',
       'utm_content',
+      'utm_id',
       'click_id',
+      'clickid',
       'user',
       'fbclid',
       'gclid',
-      'ttclid'
+      'ttclid',
+      'msclkid',
+      'twclid',
+      'li_fat_id',
+      'igshid',
+      'src',
+      'ref',
+      'referrer',
+      'affiliate_id',
+      'partner_id',
+      'campaign_id',
+      'ad_id',
+      'adset_id',
+      'creative_id',
+      'keyword',
+      'placement',
+      'network',
+      'device',
+      'audience',
+      'interest',
+      'age',
+      'gender',
+      'location'
     ];
 
-    const utmString = utmParams
+    // Constrói a string de parâmetros preservando todos os valores
+    const utmString = trackingParams
       .map(param => {
         const value = params.get(param);
         return value ? `${param}=${encodeURIComponent(value)}` : null;
@@ -30,9 +58,15 @@ export const FailureScreen: React.FC<FailureScreenProps> = ({ onContinue }) => {
       .filter(Boolean)
       .join('&');
 
+    // URL base do checkout
     const baseUrl = 'https://go.perfectpay.com.br/PPU38CPPNMF';
+    
+    // Constrói a URL final com todos os parâmetros
     const redirectUrl = `${baseUrl}${utmString ? '?' + utmString : ''}`;
 
+    console.log('Redirecting to checkout with UTMs:', redirectUrl);
+    
+    // Redireciona para o checkout
     window.location.href = redirectUrl;
   };
 
