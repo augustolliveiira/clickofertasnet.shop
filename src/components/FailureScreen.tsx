@@ -161,20 +161,26 @@ export const FailureScreen: React.FC<FailureScreenProps> = ({ onContinue }) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <div className="bg-gradient-to-br from-[#FFB800]/5 to-[#FF8500]/10 p-4 rounded-xl">
-              <Shield className="w-6 h-6 text-[#FFB800] mb-2" />
-              <h4 className="font-medium text-[#FF8500] text-sm mb-1">Segurança</h4>
-              <p className="text-xs text-[#FF8500]/60">Proteção garantida</p>
+            <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-100 text-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#FFB800] to-[#FF8500] rounded-full flex items-center justify-center mx-auto mb-2">
+                <Shield className="w-5 h-5 text-white" />
+              </div>
+              <h4 className="font-semibold text-gray-800 text-xs mb-1 leading-tight">Segurança</h4>
+              <p className="text-xs text-gray-600 leading-tight">Proteção garantida</p>
             </div>
-            <div className="bg-gradient-to-br from-[#FFB800]/5 to-[#FF8500]/10 p-4 rounded-xl">
-              <Clock className="w-6 h-6 text-[#FFB800] mb-2" />
-              <h4 className="font-medium text-[#FF8500] text-sm mb-1">Rápido</h4>
-              <p className="text-xs text-[#FF8500]/60">Liberação em 10min</p>
+            <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-100 text-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#FFB800] to-[#FF8500] rounded-full flex items-center justify-center mx-auto mb-2">
+                <Clock className="w-5 h-5 text-white" />
+              </div>
+              <h4 className="font-semibold text-gray-800 text-xs mb-1 leading-tight">Rápido</h4>
+              <p className="text-xs text-gray-600 leading-tight">Liberação em 10min</p>
             </div>
-            <div className="bg-gradient-to-br from-[#FFB800]/5 to-[#FF8500]/10 p-4 rounded-xl">
-              <CheckCircle2 className="w-6 h-6 text-[#FFB800] mb-2" />
-              <h4 className="font-medium text-[#FF8500] text-sm mb-1">Garantido</h4>
-              <p className="text-xs text-[#FF8500]/60">100% seguro</p>
+            <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-100 text-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#FFB800] to-[#FF8500] rounded-full flex items-center justify-center mx-auto mb-2">
+                <CheckCircle2 className="w-5 h-5 text-white" />
+              </div>
+              <h4 className="font-semibold text-gray-800 text-xs mb-1 leading-tight">Garantido</h4>
+              <p className="text-xs text-gray-600 leading-tight">100% seguro</p>
             </div>
           </motion.div>
 

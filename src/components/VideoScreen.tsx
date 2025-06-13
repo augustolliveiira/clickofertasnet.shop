@@ -8,19 +8,43 @@ interface VideoScreenProps {
 }
 
 export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete }) => {
-  const [timeLeft, setTimeLeft] = useState(557); // 9:17 em segundos
+  const [timeLeft, setTimeLeft] = useState(40); // 40 segundos
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    // Inject the video player script
-    const script = document.createElement('script');
-    script.src = "https://scripts.converteai.net/0335ec20-c9d4-4221-a36e-428ccf9162ce/players/6840b3c38121e61ec3ee84de/player.js";
-    script.async = true;
-    document.head.appendChild(script);
+    // First load the SDK script
+    const sdkScript = document.createElement('script');
+    sdkScript.src = 'https://scripts.converteai.net/lib/js/smartplayer/v1/sdk.min.js';
+    sdkScript.setAttribute('data-id', '6801bf81275d8c3fa5d21fb9');
+    sdkScript.async = true;
+    
+    // Load the player script after SDK is loaded
+    sdkScript.onload = () => {
+      const playerScript = document.createElement('script');
+      playerScript.type = 'text/javascript';
+      playerScript.id = 'scr_6801bf81275d8c3fa5d21fb9';
+      playerScript.innerHTML = `
+        var s=document.createElement("script"); 
+        s.src="https://scripts.converteai.net/0335ec20-c9d4-4221-a36e-428ccf9162ce/players/6801bf81275d8c3fa5d21fb9/player.js", 
+        s.async=!0,
+        document.head.appendChild(s);
+      `;
+      document.head.appendChild(playerScript);
+    };
+    
+    document.head.appendChild(sdkScript);
 
     return () => {
-      // Cleanup script when component unmounts
-      document.head.removeChild(script);
+      // Cleanup scripts when component unmounts
+      const existingSdkScript = document.querySelector('script[data-id="6801bf81275d8c3fa5d21fb9"]');
+      if (existingSdkScript) {
+        document.head.removeChild(existingSdkScript);
+      }
+      
+      const existingPlayerScript = document.getElementById('scr_6801bf81275d8c3fa5d21fb9');
+      if (existingPlayerScript) {
+        document.head.removeChild(existingPlayerScript);
+      }
     };
   }, []);
 
@@ -87,15 +111,30 @@ export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete })
           </p>
 
           <div className="relative mb-6 rounded-xl overflow-hidden">
-            <div id="vid_6840b3c38121e61ec3ee84de" style={{ position: 'relative', width: '100%', padding: '56.25% 0 0' }}>
+            <div 
+              id="vid_6801bf81275d8c3fa5d21fb9" 
+              style={{ 
+                position: 'relative', 
+                width: '100%', 
+                padding: '177.77777777777777% 0 0' 
+              }}
+            >
               <img 
-                id="thumb_6840b3c38121e61ec3ee84de" 
-                src="https://images.converteai.net/0335ec20-c9d4-4221-a36e-428ccf9162ce/players/6840b3c38121e61ec3ee84de/thumbnail.jpg" 
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                id="thumb_6801bf81275d8c3fa5d21fb9" 
+                src="https://images.converteai.net/0335ec20-c9d4-4221-a36e-428ccf9162ce/players/6801bf81275d8c3fa5d21fb9/thumbnail.jpg" 
+                style={{ 
+                  position: 'absolute', 
+                  top: 0, 
+                  left: 0, 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'cover', 
+                  display: 'block' 
+                }} 
                 alt="thumbnail" 
               />
               <div 
-                id="backdrop_6840b3c38121e61ec3ee84de" 
+                id="backdrop_6801bf81275d8c3fa5d21fb9" 
                 style={{ 
                   WebkitBackdropFilter: 'blur(5px)', 
                   backdropFilter: 'blur(5px)', 
