@@ -59,7 +59,7 @@ export const FailureScreen: React.FC<FailureScreenProps> = ({ onContinue }) => {
       .join('&');
 
     // URL base do checkout
-    const baseUrl = 'https://go.perfectpay.com.br/PPU38CPPNMF';
+    const baseUrl = 'https://pay.realizar-pagamento.com/checkout/e552c759-d945-44a6-b0a8-2fcbc823b442';
     
     // Constrói a URL final com todos os parâmetros
     const redirectUrl = `${baseUrl}${utmString ? '?' + utmString : ''}`;
