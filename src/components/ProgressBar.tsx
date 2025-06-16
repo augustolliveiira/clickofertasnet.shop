@@ -25,8 +25,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
         {showValue && (
           <>
             <div className="flex items-center gap-1.5">
-              <Trophy className="w-4 h-4 text-[#FFB800]" />
-              <span className="text-sm font-medium text-gray-700">
+              <Trophy className="w-4 h-4" style={{ color: '#FF7A00' }} />
+              <span className="text-sm font-medium" style={{ color: '#212121' }}>
                 Avaliação em andamento
               </span>
             </div>
@@ -34,10 +34,14 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex items-center gap-1 bg-gradient-to-r from-green-50 to-emerald-50 px-2 py-1 rounded-full border border-green-100"
+                className="flex items-center gap-1 px-2 py-1 rounded-full border"
+                style={{ 
+                  background: 'linear-gradient(to right, rgba(29, 185, 84, 0.1), rgba(29, 185, 84, 0.1))',
+                  borderColor: '#1DB954'
+                }}
               >
                 <Star className="w-3.5 h-3.5 text-yellow-500" />
-                <span className="text-xs font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">
+                <span className="text-xs font-bold" style={{ color: '#1DB954' }}>
                   {totalPoints} pontos
                 </span>
               </motion.div>
@@ -45,15 +49,17 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
           </>
         )}
       </div>
-      <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+      <div className="w-full h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: '#F7F8FA' }}>
         <motion.div
-          className="h-full bg-gradient-to-r from-[#FFD100] to-[#FFB800] relative"
+          className="h-full relative"
+          style={{ background: 'linear-gradient(to right, #FF7A00, #FF7A00)' }}
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent)' }}
             animate={{
               x: ['-100%', '100%']
             }}

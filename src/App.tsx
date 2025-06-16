@@ -56,6 +56,12 @@ const coinSounds = {
     sprite: {
       main: [0, 2500]
     }
+  }),
+  // NOVO SOM ESPECÍFICO PARA O POPUP
+  popup: new Howl({
+    src: ['https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3'],
+    volume: 0.6,
+    rate: 1.1
   })
 };
 
@@ -115,6 +121,7 @@ function App() {
   const [cpfRewardData, setCpfRewardData] = useState<any>(null);
   const [hasCompletedPix, setHasCompletedPix] = useState(false);
   const [hasCompletedVideo, setHasCompletedVideo] = useState(false);
+  const [showBalancePopup, setShowBalancePopup] = useState(false);
 
   useEffect(() => {
     if (isCompleted) {
@@ -223,7 +230,14 @@ function App() {
     
     coinSounds.reward.play('long');
     
-    const totalAnimationTime = (coins * 0.03) + 1.2;
+    // Mostrar popup do saldo após 1.2 segundos (20% mais rápido que 1.5s)
+    setTimeout(() => {
+      setShowBalancePopup(true);
+      // TOCAR O SOM ESPECÍFICO DO POPUP
+      coinSounds.popup.play();
+    }, 1200);
+    
+    const totalAnimationTime = (coins * 0.03) + 2.8; // 20% mais rápido que 3.5 segundos
     
     await new Promise(resolve => setTimeout(resolve, totalAnimationTime * 1000));
     
@@ -231,14 +245,15 @@ function App() {
     setShowReward(false);
     setIsTransitioning(false);
     setIsAnimatingCoins(false);
+    setShowBalancePopup(false);
 
-    // Novo fluxo: 6 perguntas → PIX → 4 perguntas → VSL → recompensa → erro
-    if (currentQuestion === 5 && !hasCompletedPix) {
-      // Após a 6ª pergunta (índice 5), vai para PIX
-      setShowPixScreen(true);
-    } else if (currentQuestion === 9 && hasCompletedPix && !hasCompletedVideo) {
-      // Após a 10ª pergunta (índice 9), vai para VSL
+    // NOVA ORDEM: 6 perguntas → VSL → 4 perguntas → PIX → recompensa → erro
+    if (currentQuestion === 5 && !hasCompletedVideo) {
+      // Após a 6ª pergunta (índice 5), vai para VSL
       setShowVideoScreen(true);
+    } else if (currentQuestion === 9 && hasCompletedVideo && !hasCompletedPix) {
+      // Após a 10ª pergunta (índice 9), vai para PIX
+      setShowPixScreen(true);
     } else if (currentQuestion < questions.length - 1) {
       // Continua com as perguntas
       setCurrentQuestion(prev => prev + 1);
@@ -255,8 +270,17 @@ function App() {
     setShowVideoScreen(false);
     setHasCompletedVideo(true);
     
-    // Após o vídeo, mostra a tela de recompensa se tem dados do CPF
-    if (cpfRewardData) {
+    // Após o vídeo, continua com as perguntas (pergunta 7)
+    setCurrentQuestion(6);
+  };
+
+  const handlePixSubmit = (cpfData?: any) => {
+    setShowPixScreen(false);
+    setHasCompletedPix(true);
+    
+    if (cpfData) {
+      // Salva os dados do CPF e mostra a tela de recompensa
+      setCpfRewardData(cpfData);
       setShowCpfRewardScreen(true);
     } else {
       // Se não tem dados do CPF, vai direto para erro
@@ -265,19 +289,6 @@ function App() {
       setShowFailureScreen(true);
       playVictorySequence();
     }
-  };
-
-  const handlePixSubmit = (cpfData?: any) => {
-    setShowPixScreen(false);
-    setHasCompletedPix(true);
-    
-    if (cpfData) {
-      // Salva os dados do CPF mas NÃO mostra a tela ainda
-      setCpfRewardData(cpfData);
-    }
-    
-    // Continua com as perguntas (pergunta 7)
-    setCurrentQuestion(6);
   };
 
   const handleCpfRewardContinue = () => {
@@ -290,151 +301,83 @@ function App() {
     playVictorySequence();
   };
 
-  if (showWelcome) {
+  // SE ESTÁ FAZENDO ANIMAÇÃO DAS MOEDAS - FUNDO IGUAL AO QUIZ E POPUP DO SALDO
+  if (isTransitioning) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-white">
-        <div className={`relative z-10 text-center transition-all duration-1000 ${startingQuiz ? 'scale-150 opacity-0' : 'scale-100 opacity-100'}`}>
-          <div className="max-w-[380px] mx-auto">
-            <h1 className="text-primary text-4xl font-bold tracking-widest mb-8 [text-shadow:_0_0_30px_rgb(124_58_237_/_0.3)] animate-pulse">
-              CUPOM PREMIADO
-            </h1>
-            
-            <div className="relative mb-6">
-              <div className="coin w-32 h-32 mx-auto animate-welcome-coin">
-                <div className="absolute inset-0 animate-coin-shine"></div>
-              </div>
-              
-              <div className="coin w-24 h-24 absolute top-[-20px] left-[-40px] animate-float-delayed opacity-50"></div>
-              <div className="coin w-20 h-20 absolute bottom-[-10px] right-[-30px] animate-float-reverse opacity-30"></div>
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
-              Participe da seleção e receba até
-            </h2>
-            <div className="text-4xl sm:text-5xl font-bold text-primary mb-6 animate-pulse">
-              {formatCurrency(1548.00)}
-            </div>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-md mx-auto">
-              Estamos selecionando pessoas para um programa de avaliação digital com premiação
-            </p>
-            
-            <button
-              onClick={startQuiz}
-              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-[#FFB800] to-[#FF8500] rounded-full overflow-hidden shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-              disabled={startingQuiz}
-            >
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#FFB800] via-[#FF8500] to-[#FFB800] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-size-200 animate-gradient-x"></div>
-              <span className="relative flex items-center">
-                Começar Agora
-                <Play className="w-5 h-5 ml-2 animate-bounce" />
-              </span>
-            </button>
+      <div className="min-h-screen relative">
+        {/* FUNDO COM NOVA PALETA */}
+        <div className="absolute inset-0" style={{ backgroundColor: '#F7F8FA' }}>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1A2E44]/10 via-transparent to-[#FF7A00]/5"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(26,46,68,0.08),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(255,122,0,0.06),transparent_50%)]"></div>
+        </div>
+        
+        {/* EXPLOSÃO */}
+        {showExplosion && (
+          <div className="absolute inset-0 flex items-center justify-center z-[999998]">
+            <div className="explosion"></div>
           </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (showCpfValidation) {
-    return (
-      <CpfValidationScreen
-        onValidationComplete={handleCpfValidationComplete}
-        onBack={handleBackToWelcome}
-      />
-    );
-  }
-
-  if (showTransition) {
-    return (
-      <TransitionScreen
-        name={userName}
-        evaluations={availableEvaluations}
-        onComplete={handleTransitionComplete}
-      />
-    );
-  }
-
-  if (showCpfRewardScreen && cpfRewardData) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
-          <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        </div>
-        <CpfRewardScreen
-          balance={balance}
-          cpfData={cpfRewardData}
-          onContinue={handleCpfRewardContinue}
-        />
-      </div>
-    );
-  }
-
-  if (showPixScreen) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
-          <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        </div>
-        <PixScreen
-          balance={balance}
-          onSubmit={handlePixSubmit}
-        />
-      </div>
-    );
-  }
-
-  if (showFailureScreen) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
-          <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        </div>
-        <FailureScreen onContinue={() => {}} />
-      </div>
-    );
-  }
-
-  if (showIntermediate) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
-          <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        </div>
-        <IntermediateScreen
-          balance={balance}
-          testimonials={testimonials}
-        />
-      </div>
-    );
-  }
-
-  if (showVideoScreen) {
-    return (
-      <VideoScreen
-        balance={balance}
-        onComplete={handleVideoComplete}
-      />
-    );
-  }
-
-  return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-purple-400">
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-      </div>
-      
-      {(showFireworks || isTransitioning) && (
-        <div className="absolute inset-0 bg-black bg-opacity-70 transition-opacity duration-1000"></div>
-      )}
-      
-      {showExplosion && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="explosion"></div>
-        </div>
-      )}
-      
-      {(isTransitioning || showReward || isCompleted) && (
-        <div className="fixed inset-0 pointer-events-none">
+        )}
+        
+        {/* POPUP DO SALDO NO MEIO DA TELA - 20% MAIS RÁPIDO */}
+        {showBalancePopup && (
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center z-[999997]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20 text-center max-w-sm mx-4"
+              initial={{ scale: 0.8, y: 50 }}
+              animate={{ scale: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 200 }}
+            >
+              <motion.div
+                className="w-20 h-20 bg-gradient-to-br from-[#FF7A00] to-[#FF7A00] rounded-full mx-auto mb-6 flex items-center justify-center"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 360]
+                }}
+                transition={{
+                  duration: 1.6, // 20% mais rápido que 2 segundos
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <DollarSign className="w-10 h-10 text-white" />
+              </motion.div>
+              
+              <h3 className="text-2xl font-bold mb-3" style={{ color: '#212121' }}>
+                Saldo Atualizado!
+              </h3>
+              
+              <motion.div
+                className="text-4xl font-bold mb-4"
+                style={{ color: '#FF7A00' }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.24, type: "spring", stiffness: 200 }} // 20% mais rápido que 0.3s
+              >
+                {formatCurrency(balance)}
+              </motion.div>
+              
+              <p style={{ color: '#666666' }}>
+                Continue respondendo para ganhar mais!
+              </p>
+              
+              <div className="mt-4 flex items-center justify-center gap-2">
+                <Star className="w-5 h-5" style={{ color: '#FF7A00' }} />
+                <span className="text-sm" style={{ color: '#666666' }}>
+                  +{questions[currentQuestion]?.points || 0} pontos adicionados
+                </span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+        
+        {/* MOEDAS VOANDO */}
+        <div className="fixed inset-0 pointer-events-none z-[999999]">
           {Array.from({ length: transitionCoins }).map((_, index) => {
             const delay = index * 0.03;
             const startX = window.innerWidth / 2;
@@ -464,27 +407,333 @@ function App() {
             );
           })}
         </div>
-      )}
+      </div>
+    );
+  }
 
-      <div className={`quiz-container ${isTransitioning ? 'transitioning' : ''}`}>
-        <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl p-6 w-full max-w-[340px] mx-auto">
-          <div className="mb-6">
+  if (showWelcome) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ backgroundColor: '#F7F8FA' }}>
+        {/* FUNDO COM NOVA PALETA */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0" style={{ backgroundColor: '#F7F8FA' }}></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1A2E44]/5 via-transparent to-[#FF7A00]/5"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(26,46,68,0.08),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(255,122,0,0.06),transparent_50%)]"></div>
+        </div>
+
+        <div className={`relative z-10 text-center transition-all duration-1000 ${startingQuiz ? 'scale-150 opacity-0' : 'scale-100 opacity-100'}`}>
+          <div className="max-w-[420px] mx-auto">
+            {/* Moeda no topo com efeito */}
+            <motion.div
+              className="relative mb-6"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+            >
+              <div className="coin w-16 h-16 mx-auto animate-welcome-coin" style={{ background: 'linear-gradient(45deg, #FF7A00, #FF7A00)' }}>
+                <div className="absolute inset-0 animate-coin-shine"></div>
+              </div>
+              
+              <div className="coin w-10 h-10 absolute top-[-6px] left-[-20px] animate-float-delayed opacity-70" style={{ background: 'linear-gradient(45deg, #FF7A00, #FF7A00)' }}></div>
+              <div className="coin w-8 h-8 absolute bottom-[-3px] right-[-15px] animate-float-reverse opacity-50" style={{ background: 'linear-gradient(45deg, #FF7A00, #FF7A00)' }}></div>
+            </motion.div>
+
+            {/* Headline principal com nova paleta */}
+            <motion.h1 
+              className="text-2xl sm:text-3xl font-bold mb-6 leading-tight"
+              style={{ color: '#212121' }}
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              Cansado de trabalhar o mês inteiro e ainda ver a{' '}
+              <span className="relative">
+                <span className="font-black" style={{ color: '#FF7A00' }}>
+                  conta zerada
+                </span>
+                <div className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full" style={{ backgroundColor: '#FF7A00' }}></div>
+              </span>{' '}
+              no fim do dia?
+            </motion.h1>
+
+            {/* Seção principal reformulada */}
+            <motion.div
+              className="mb-6 rounded-xl p-5 border shadow-lg"
+              style={{ 
+                backgroundColor: 'white',
+                borderColor: '#1A2E44',
+                borderWidth: '1px'
+              }}
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              <p className="leading-relaxed mb-4" style={{ color: '#212121' }}>
+                Tem gente na mesma situação que você —{' '}
+                <span className="font-bold" style={{ color: '#FF7A00' }}>desempregado, endividado, sem renda</span>{' '}
+                — que começou a fazer dinheiro{' '}
+                <span className="font-bold" style={{ color: '#1A2E44' }}>respondendo perguntas no celular</span>
+              </p>
+              
+              {/* Lista reformulada com design profissional */}
+              <div className="space-y-3">
+                {[
+                  { text: "Sem patrão", icon: "🚫👔" },
+                  { text: "Sem diploma", icon: "🚫🎓" },
+                  { text: "Sem enrolação", icon: "🚫⏰" }
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className="p-0.5 rounded-lg shadow-lg"
+                    style={{ background: 'linear-gradient(135deg, #1DB954, #1DB954)' }}
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.8 + index * 0.1 }}
+                  >
+                    <div className="rounded-md p-3 flex items-center gap-3" style={{ backgroundColor: 'white' }}>
+                      <span className="text-lg">{item.icon}</span>
+                      <span className="font-semibold flex-1" style={{ color: '#212121' }}>{item.text}</span>
+                      <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#1DB954' }}></div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Seção de ação com cores melhoradas */}
+            <motion.div
+              className="mb-6 text-center"
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.8 }}
+            >
+              <p className="mb-3 text-base" style={{ color: '#666666' }}>
+                Enquanto você pensa se vai dar certo, outros já estão{' '}
+                <span className="font-bold" style={{ color: '#FF7A00' }}>ganhando</span>
+              </p>
+              <div className="p-0.5 rounded-lg shadow-xl" style={{ background: 'linear-gradient(135deg, #FF7A00, #FF7A00)' }}>
+                <div className="rounded-md p-3" style={{ backgroundColor: 'white' }}>
+                  <span className="font-bold text-base" style={{ color: '#FF7A00' }}>
+                    Respondeu, ganhou. Respondeu de novo, ganhou mais.
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Valor em destaque com cores vibrantes */}
+            <motion.div
+              className="mb-6"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 1.0 }}
+            >
+              <div className="p-1 rounded-2xl shadow-2xl" style={{ background: 'linear-gradient(135deg, #FF7A00, #FF7A00)' }}>
+                <div className="rounded-xl p-4 text-center" style={{ background: 'linear-gradient(135deg, #1A2E44, #1A2E44)' }}>
+                  <p className="font-bold mb-1 text-sm" style={{ color: '#FF7A00' }}>Ganhe até</p>
+                  <div className="text-3xl sm:text-4xl font-black mb-1 text-white">
+                    {formatCurrency(1548.00)}
+                  </div>
+                  <p className="text-sm font-medium" style={{ color: '#FF7A00' }}>respondendo perguntas simples</p>
+                </div>
+              </div>
+            </motion.div>
+            
+            {/* Botão principal com cores vibrantes */}
+            <motion.button
+              onClick={startQuiz}
+              className="group relative w-full inline-flex items-center justify-center px-6 py-4 text-lg font-black text-white rounded-xl overflow-hidden shadow-2xl transition-all duration-300 hover:scale-105"
+              style={{ 
+                background: 'linear-gradient(135deg, #FF7A00, #FF7A00)',
+                boxShadow: '0 8px 32px rgba(255, 122, 0, 0.4)'
+              }}
+              disabled={startingQuiz}
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.2 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <div className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-size-200 animate-gradient-x" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%)' }}></div>
+              <span className="relative flex items-center gap-2">
+                COMEÇAR A GANHAR AGORA
+                <Play className="w-5 h-5 animate-bounce" />
+              </span>
+            </motion.button>
+
+            {/* Texto de segurança com cores melhoradas */}
+            <motion.div
+              className="mt-4 flex items-center justify-center gap-3 text-xs"
+              style={{ color: '#666666' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.4 }}
+            >
+              <span className="flex items-center gap-1">
+                <Shield className="w-3 h-3" style={{ color: '#1DB954' }} />
+                <span style={{ color: '#1DB954' }}>100% gratuito</span>
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <Shield className="w-3 h-3" style={{ color: '#1DB954' }} />
+                <span style={{ color: '#1DB954' }}>Sem pegadinhas</span>
+              </span>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (showCpfValidation) {
+    return (
+      <CpfValidationScreen
+        onValidationComplete={handleCpfValidationComplete}
+        onBack={handleBackToWelcome}
+      />
+    );
+  }
+
+  if (showTransition) {
+    return (
+      <TransitionScreen
+        name={userName}
+        evaluations={availableEvaluations}
+        onComplete={handleTransitionComplete}
+      />
+    );
+  }
+
+  if (showCpfRewardScreen && cpfRewardData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 relative">
+        {/* FUNDO COM NOVA PALETA */}
+        <div className="absolute inset-0" style={{ backgroundColor: '#F7F8FA' }}>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1A2E44]/10 via-transparent to-[#FF7A00]/5"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(26,46,68,0.08),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(255,122,0,0.06),transparent_50%)]"></div>
+        </div>
+        <CpfRewardScreen
+          balance={balance}
+          cpfData={cpfRewardData}
+          onContinue={handleCpfRewardContinue}
+        />
+      </div>
+    );
+  }
+
+  if (showVideoScreen) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 relative">
+        {/* FUNDO COM NOVA PALETA */}
+        <div className="absolute inset-0" style={{ backgroundColor: '#F7F8FA' }}>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1A2E44]/10 via-transparent to-[#FF7A00]/5"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(26,46,68,0.08),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(255,122,0,0.06),transparent_50%)]"></div>
+        </div>
+        <VideoScreen
+          balance={balance}
+          onComplete={handleVideoComplete}
+        />
+      </div>
+    );
+  }
+
+  if (showPixScreen) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 relative">
+        {/* FUNDO COM NOVA PALETA */}
+        <div className="absolute inset-0" style={{ backgroundColor: '#F7F8FA' }}>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1A2E44]/10 via-transparent to-[#FF7A00]/5"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(26,46,68,0.08),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(255,122,0,0.06),transparent_50%)]"></div>
+        </div>
+        <PixScreen
+          balance={balance}
+          onSubmit={handlePixSubmit}
+        />
+      </div>
+    );
+  }
+
+  if (showFailureScreen) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 relative">
+        {/* FUNDO COM NOVA PALETA */}
+        <div className="absolute inset-0" style={{ backgroundColor: '#F7F8FA' }}>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1A2E44]/10 via-transparent to-[#FF7A00]/5"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(26,46,68,0.08),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(255,122,0,0.06),transparent_50%)]"></div>
+        </div>
+        <FailureScreen onContinue={() => {}} />
+      </div>
+    );
+  }
+
+  if (showIntermediate) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 relative">
+        {/* FUNDO COM NOVA PALETA */}
+        <div className="absolute inset-0" style={{ backgroundColor: '#F7F8FA' }}>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1A2E44]/10 via-transparent to-[#FF7A00]/5"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(26,46,68,0.08),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(255,122,0,0.06),transparent_50%)]"></div>
+        </div>
+        <IntermediateScreen
+          balance={balance}
+          testimonials={testimonials}
+        />
+      </div>
+    );
+  }
+
+  // TELA PRINCIPAL DO QUIZ - SÓ APARECE QUANDO NÃO ESTÁ EM TRANSIÇÃO
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 relative">
+      {/* FUNDO COM NOVA PALETA */}
+      <div className="absolute inset-0" style={{ backgroundColor: '#F7F8FA' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1A2E44]/10 via-transparent to-[#FF7A00]/5"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(26,46,68,0.08),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(255,122,0,0.06),transparent_50%)]"></div>
+      </div>
+      
+      {/* QUIZ */}
+      <motion.div 
+        className="quiz-container"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-6 w-full max-w-[380px] mx-auto border border-white/20">
+          {/* Header do perfil com animação */}
+          <motion.div 
+            className="mb-6"
+            initial={{ y: -10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
             <ProfileCard
               name={userName || 'Usuário'}
               balance={balance}
               remainingQuestions={questions.length - currentQuestion}
               totalQuestions={questions.length}
             />
-          </div>
+          </motion.div>
 
-          <div className="flex items-center gap-3 mb-4">
+          {/* Header da questão com moeda animada */}
+          <motion.div 
+            className="flex items-center gap-3 mb-4"
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
             <div className="quiz-coin">
               <div className="coin">
                 <div className="absolute inset-0 animate-coin-shine"></div>
               </div>
             </div>
             <div className="flex-1">
-              <h2 className="text-lg font-semibold text-gray-800">
+              <h2 className="text-lg font-bold" style={{ color: '#212121' }}>
                 Questão {currentQuestion + 1} de {questions.length}
               </h2>
               <ProgressBar
@@ -494,22 +743,42 @@ function App() {
                 totalPoints={totalPoints}
               />
             </div>
-          </div>
+          </motion.div>
 
-          <div className="relative rounded-lg overflow-hidden mb-4 aspect-video">
+          {/* Imagem da questão com overlay dinâmico */}
+          <motion.div 
+            className="relative rounded-xl overflow-hidden mb-4 aspect-video shadow-lg"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
             <img
               src={questions[currentQuestion].image}
               alt=""
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-          </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            
+            {/* Indicador de pontos na imagem */}
+            <div className="absolute top-3 right-3 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg" style={{ background: 'linear-gradient(to right, #FF7A00, #FF7A00)' }}>
+              +{questions[currentQuestion].points} pts
+            </div>
+          </motion.div>
 
-          <div className="mb-4">
+          {/* Badges de nível com animação melhorada */}
+          <motion.div
+            className="mb-4"
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
             {!isAnimatingCoins && (
-              <div className="p-2 bg-purple-50 rounded-lg border border-purple-100">
-                <div className="flex items-center justify-between gap-1.5">
-                  <Shield className="w-4 h-4 text-primary" />
+              <div className="p-3 rounded-xl border shadow-sm" style={{ backgroundColor: '#F7F8FA', borderColor: '#1A2E44', borderWidth: '1px' }}>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-4 h-4" style={{ color: '#FF7A00' }} />
+                    <span className="text-sm font-medium" style={{ color: '#212121' }}>Nível Atual:</span>
+                  </div>
                   <div className="flex items-center gap-1 flex-wrap">
                     {rewardLevels.map((level) => (
                       <RewardLevelBadge
@@ -523,29 +792,57 @@ function App() {
                 </div>
               </div>
             )}
-          </div>
+          </motion.div>
 
-          <h1 className="text-xl font-bold text-gray-800 mb-4">
+          {/* Pergunta com destaque */}
+          <motion.h1 
+            className="text-xl font-bold mb-5 leading-tight"
+            style={{ color: '#212121' }}
+            initial={{ y: 15, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
             {questions[currentQuestion].text}
-          </h1>
+          </motion.h1>
 
+          {/* Opções de resposta com animações escalonadas */}
           <div className="space-y-3">
             {questions[currentQuestion].options.map((option, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => handleAnswer(option)}
                 disabled={isAnimatingCoins}
-                className={`question-button w-full text-left flex items-center justify-between ${
+                className={`question-button w-full text-left flex items-center justify-between group ${
                   isAnimatingCoins ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
+                initial={{ x: -30, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.7 + index * 0.1 }}
+                whileHover={!isAnimatingCoins ? { 
+                  scale: 1.02,
+                  boxShadow: "0 8px 25px rgba(255, 122, 0, 0.15)"
+                } : {}}
+                whileTap={!isAnimatingCoins ? { scale: 0.98 } : {}}
               >
-                <span className="text-gray-700">{option}</span>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
-              </button>
+                <span className="font-medium" style={{ color: '#212121' }}>{option}</span>
+                <ChevronRight className="w-5 h-5 transition-colors duration-200" style={{ color: '#666666' }} />
+              </motion.button>
             ))}
           </div>
+
+          {/* Feedback motivacional */}
+          <motion.div
+            className="mt-4 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+          >
+            <p className="text-sm" style={{ color: '#666666' }}>
+              💡 Cada resposta te aproxima da recompensa!
+            </p>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

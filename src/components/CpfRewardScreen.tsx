@@ -77,61 +77,65 @@ export const CpfRewardScreen: React.FC<CpfRewardScreenProps> = ({
       transition={{ duration: 0.5 }}
     >
       <div className="h-20 flex items-center justify-center mb-6">
-        <h1 className="text-3xl font-bold text-[#FFB800]">Cupom Premiado</h1>
+        <h1 className="text-3xl font-bold" style={{ color: '#FF7A00' }}>Respostas Premiadas</h1>
       </div>
 
-      <div className="bg-gradient-to-r from-[#FFB800]/10 to-[#FF8500]/10 rounded-xl p-4 mb-6">
+      <div className="rounded-xl p-4 mb-6" style={{ background: 'linear-gradient(to right, rgba(255, 122, 0, 0.1), rgba(255, 122, 0, 0.1))' }}>
         <div className="flex items-center justify-center gap-2 mb-2">
-          <Sparkles className="w-5 h-5 text-[#FFB800]" />
-          <h3 className="font-semibold text-[#FF8500]">
-            Programa Verificado Cupom Premiado
+          <Sparkles className="w-5 h-5" style={{ color: '#FF7A00' }} />
+          <h3 className="font-semibold" style={{ color: '#FF7A00' }}>
+            Programa Verificado Respostas Premiadas
           </h3>
         </div>
-        <p className="text-sm text-[#FF8500]">
+        <p className="text-sm" style={{ color: '#FF7A00' }}>
           Seu saque está garantido pela plataforma oficial
         </p>
       </div>
 
       {/* Header com dados do usuário validado */}
       <motion.div
-        className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 mb-6 border border-green-100"
+        className="rounded-xl p-4 mb-6 border"
+        style={{ 
+          background: 'linear-gradient(to right, rgba(29, 185, 84, 0.1), rgba(29, 185, 84, 0.1))',
+          borderColor: '#1DB954'
+        }}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#1DB954' }}>
             <User className="w-6 h-6 text-white" />
           </div>
           <div className="flex-1 text-left">
-            <h3 className="font-semibold text-green-800">
+            <h3 className="font-semibold" style={{ color: '#1DB954' }}>
               {cpfData.nome}
             </h3>
             <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-green-600" />
-              <span className="text-sm text-green-600">Conta Verificada</span>
+              <Shield className="w-4 h-4" style={{ color: '#1DB954' }} />
+              <span className="text-sm" style={{ color: '#1DB954' }}>Conta Verificada</span>
             </div>
           </div>
           <div className="text-right">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 text-yellow-500" />
-              <span className="text-sm font-medium text-green-700">
+              <span className="text-sm font-medium" style={{ color: '#1DB954' }}>
                 {cpfData.evaluations} avaliações
               </span>
             </div>
           </div>
         </div>
         
-        <div className="bg-white/50 rounded-lg p-3">
+        <div className="rounded-lg p-3" style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
           <div className="flex items-center justify-between text-sm mb-2">
-            <span className="text-green-700">CPF:</span>
-            <span className="font-semibold text-green-800">
+            <span style={{ color: '#1DB954' }}>CPF:</span>
+            <span className="font-semibold" style={{ color: '#1DB954' }}>
               {formatCPF(cpfData.cpf)}
             </span>
           </div>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-green-700">Faixa de recompensa:</span>
-            <span className="font-semibold text-green-800">
+            <span style={{ color: '#1DB954' }}>Faixa de recompensa:</span>
+            <span className="font-semibold" style={{ color: '#1DB954' }}>
               {formatCurrency(cpfData.minValue)} - {formatCurrency(1548.00)}
             </span>
           </div>
@@ -150,7 +154,8 @@ export const CpfRewardScreen: React.FC<CpfRewardScreenProps> = ({
         
         <div className="flex-1 text-left">
           <motion.h1 
-            className="text-2xl font-bold text-gray-800"
+            className="text-2xl font-bold"
+            style={{ color: '#212121' }}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -158,7 +163,7 @@ export const CpfRewardScreen: React.FC<CpfRewardScreenProps> = ({
             Parabéns, {cpfData.nome.split(' ')[0]}! 🎉
           </motion.h1>
           <motion.p 
-            className="text-gray-600"
+            style={{ color: '#666666' }}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -169,7 +174,8 @@ export const CpfRewardScreen: React.FC<CpfRewardScreenProps> = ({
       </div>
 
       <motion.div
-        className="text-4xl font-bold text-[#FFB800] mb-6"
+        className="text-4xl font-bold mb-6"
+        style={{ color: '#FF7A00' }}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.7 }}
@@ -183,19 +189,20 @@ export const CpfRewardScreen: React.FC<CpfRewardScreenProps> = ({
           return (
             <motion.div
               key={index}
-              className="flex items-center gap-3 bg-[#FFB800]/5 p-3 rounded-lg"
+              className="flex items-center gap-3 p-3 rounded-lg"
+              style={{ background: 'rgba(255, 122, 0, 0.05)' }}
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.8 + index * 0.1 }}
             >
-              <div className="w-10 h-10 bg-[#FFB800]/10 rounded-full flex items-center justify-center">
-                <Icon className="w-5 h-5 text-[#FFB800]" />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'rgba(255, 122, 0, 0.1)' }}>
+                <Icon className="w-5 h-5" style={{ color: '#FF7A00' }} />
               </div>
               <div className="flex-1 text-left">
-                <h4 className="font-medium text-gray-800">{achievement.title}</h4>
-                <p className="text-sm text-gray-600">{achievement.description}</p>
+                <h4 className="font-medium" style={{ color: '#212121' }}>{achievement.title}</h4>
+                <p className="text-sm" style={{ color: '#666666' }}>{achievement.description}</p>
               </div>
-              <Check className="w-5 h-5 text-green-500" />
+              <Check className="w-5 h-5" style={{ color: '#1DB954' }} />
             </motion.div>
           );
         })}
@@ -207,41 +214,43 @@ export const CpfRewardScreen: React.FC<CpfRewardScreenProps> = ({
           return (
             <motion.div
               key={index}
-              className="bg-gradient-to-br from-[#FFB800]/5 to-[#FF8500]/10 p-3 rounded-xl text-center"
+              className="p-3 rounded-xl text-center"
+              style={{ background: 'linear-gradient(to bottom right, rgba(255, 122, 0, 0.05), rgba(255, 122, 0, 0.1))' }}
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.1 + index * 0.1 }}
             >
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto mb-2">
-                <Icon className="w-5 h-5 text-[#FFB800]" />
+                <Icon className="w-5 h-5" style={{ color: '#FF7A00' }} />
               </div>
-              <h4 className="font-medium text-[#FF8500] text-sm mb-1">{benefit.title}</h4>
-              <p className="text-xs text-[#FF8500]">{benefit.description}</p>
+              <h4 className="font-medium text-sm mb-1" style={{ color: '#FF7A00' }}>{benefit.title}</h4>
+              <p className="text-xs" style={{ color: '#FF7A00' }}>{benefit.description}</p>
             </motion.div>
           );
         })}
       </div>
 
-      <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl mb-6">
-        <div className="flex items-center justify-between mb-3 pb-3 border-b border-green-200">
-          <span className="text-sm font-medium text-green-800">Status do Saque</span>
-          <span className="text-sm bg-green-500 text-white px-2 py-0.5 rounded-full">
+      <div className="p-4 rounded-xl mb-6" style={{ background: 'linear-gradient(to bottom right, rgba(29, 185, 84, 0.1), rgba(29, 185, 84, 0.1))' }}>
+        <div className="flex items-center justify-between mb-3 pb-3 border-b" style={{ borderColor: '#1DB954' }}>
+          <span className="text-sm font-medium" style={{ color: '#1DB954' }}>Status do Saque</span>
+          <span className="text-sm text-white px-2 py-0.5 rounded-full" style={{ backgroundColor: '#1DB954' }}>
             Disponível
           </span>
         </div>
-        <div className="flex items-center justify-between mb-3 pb-3 border-b border-green-200">
-          <span className="text-sm font-medium text-green-800">Tempo para Saque</span>
-          <span className="text-sm text-green-700">24 horas</span>
+        <div className="flex items-center justify-between mb-3 pb-3 border-b" style={{ borderColor: '#1DB954' }}>
+          <span className="text-sm font-medium" style={{ color: '#1DB954' }}>Tempo para Saque</span>
+          <span className="text-sm" style={{ color: '#1DB954' }}>24 horas</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-green-800">Garantia Cupom Premiado</span>
-          <span className="text-sm text-green-700">Ativa</span>
+          <span className="text-sm font-medium" style={{ color: '#1DB954' }}>Garantia Respostas Premiadas</span>
+          <span className="text-sm" style={{ color: '#1DB954' }}>Ativa</span>
         </div>
       </div>
 
       <motion.button
         onClick={onContinue}
-        className="w-full py-4 px-6 bg-gradient-to-r from-[#FFB800] to-[#FF8500] text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-4"
+        className="w-full py-4 px-6 text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-4"
+        style={{ background: 'linear-gradient(to right, #FF7A00, #FF7A00)' }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -249,8 +258,8 @@ export const CpfRewardScreen: React.FC<CpfRewardScreenProps> = ({
         <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
       </motion.button>
 
-      <p className="mt-4 text-sm text-gray-500">
-        Programa oficial de recompensas patrocinado pelo Cupom Premiado
+      <p className="mt-4 text-sm" style={{ color: '#666666' }}>
+        Programa oficial de recompensas patrocinado pelo Respostas Premiadas
       </p>
     </motion.div>
   );

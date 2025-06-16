@@ -15,8 +15,11 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
 }) => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FFB800] via-[#FF8500] to-[#FF6B00]">
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+      {/* FUNDO COM NOVA PALETA */}
+      <div className="absolute inset-0" style={{ backgroundColor: '#F7F8FA' }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1A2E44]/10 via-transparent to-[#FF7A00]/5"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(26,46,68,0.08),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,rgba(255,122,0,0.06),transparent_50%)]"></div>
       </div>
 
       <motion.div 
@@ -26,21 +29,24 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
         transition={{ duration: 0.5 }}
       >
         <div className="h-20 flex items-center justify-center mb-6">
-          <h1 className="text-3xl font-bold text-[#FFB800]">Cupom Premiado</h1>
+          <h1 className="text-3xl font-bold" style={{ color: '#FF7A00' }}>Respostas Premiadas</h1>
         </div>
 
         <motion.div
-          className="bg-gradient-to-r from-[#FFB800]/10 to-[#FF8500]/10 rounded-xl p-4 mb-6"
+          className="rounded-xl p-4 mb-6"
+          style={{ 
+            background: 'linear-gradient(to right, rgba(255, 122, 0, 0.1), rgba(255, 122, 0, 0.1))'
+          }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#FFB800]" />
-              <span className="font-semibold text-[#FF8500]">Programa Oficial Cupom Premiado</span>
+              <Sparkles className="w-5 h-5" style={{ color: '#FF7A00' }} />
+              <span className="font-semibold" style={{ color: '#FF7A00' }}>Programa Oficial Respostas Premiadas</span>
             </div>
-            <div className="flex items-center gap-1 bg-green-500 px-2 py-0.5 rounded-full">
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: '#1DB954' }}>
               <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
               <span className="text-xs text-white font-medium">Ativo</span>
             </div>
@@ -54,14 +60,18 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
           transition={{ duration: 0.5 }}
         >
           <motion.div 
-            className="w-24 h-24 bg-gradient-to-br from-[#FFB800]/10 to-[#FF8500]/10 rounded-full mx-auto mb-4 flex items-center justify-center relative"
+            className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center relative"
+            style={{ 
+              background: 'linear-gradient(to bottom right, rgba(255, 122, 0, 0.1), rgba(255, 122, 0, 0.1))'
+            }}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
           >
-            <Trophy className="w-12 h-12 text-[#FFB800]" />
+            <Trophy className="w-12 h-12" style={{ color: '#FF7A00' }} />
             <motion.div
-              className="absolute -right-2 -top-2 w-8 h-8 bg-[#FFB800] rounded-full flex items-center justify-center"
+              className="absolute -right-2 -top-2 w-8 h-8 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: '#FF7A00' }}
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ delay: 0.5 }}
@@ -76,12 +86,13 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
             transition={{ delay: 0.3 }}
             className="space-y-2"
           >
-            <h2 className="text-2xl font-bold text-gray-800">
+            <h2 className="text-2xl font-bold" style={{ color: '#212121' }}>
               Olá, {name.split(' ')[0]}!
             </h2>
             
             <motion.div
-              className="text-lg text-gray-600"
+              className="text-lg"
+              style={{ color: '#666666' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -92,7 +103,10 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
         </motion.div>
 
         <motion.div
-          className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 mb-6"
+          className="rounded-xl p-4 mb-6"
+          style={{ 
+            background: 'linear-gradient(to bottom right, #F7F8FA, #F7F8FA)'
+          }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
@@ -100,32 +114,33 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-gray-700" />
-                <span className="font-medium text-gray-700">Status da Conta</span>
+                <Shield className="w-5 h-5" style={{ color: '#212121' }} />
+                <span className="font-medium" style={{ color: '#212121' }}>Status da Conta</span>
               </div>
-              <span className="text-sm bg-green-500 text-white px-2 py-0.5 rounded-full">
+              <span className="text-sm text-white px-2 py-0.5 rounded-full" style={{ backgroundColor: '#1DB954' }}>
                 Verificado
               </span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="font-medium text-gray-700">Avaliações Disponíveis</span>
+              <span className="font-medium" style={{ color: '#212121' }}>Avaliações Disponíveis</span>
               <div className="flex items-center gap-2">
                 <div className="flex -space-x-1">
                   {Array.from({ length: evaluations }).map((_, i) => (
                     <div
                       key={i}
-                      className="w-2 h-2 rounded-full bg-[#FFB800]"
+                      className="w-2 h-2 rounded-full"
+                      style={{ backgroundColor: '#FF7A00' }}
                     />
                   ))}
                 </div>
-                <span className="text-gray-700">{evaluations}</span>
+                <span style={{ color: '#212121' }}>{evaluations}</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="font-medium text-gray-700">Tempo Restante</span>
-              <div className="flex items-center gap-2 text-gray-700">
+              <span className="font-medium" style={{ color: '#212121' }}>Tempo Restante</span>
+              <div className="flex items-center gap-2" style={{ color: '#212121' }}>
                 <Clock className="w-4 h-4" />
                 <span>24 horas</span>
               </div>
@@ -135,7 +150,8 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
 
         <motion.button
           onClick={onComplete}
-          className="w-full py-4 px-6 bg-gradient-to-r from-[#FFB800] to-[#FF8500] text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-4"
+          className="w-full py-4 px-6 text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-4"
+          style={{ background: 'linear-gradient(to right, #FF7A00, #FF7A00)' }}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1 }}
@@ -147,12 +163,13 @@ export const TransitionScreen: React.FC<TransitionScreenProps> = ({
         </motion.button>
 
         <motion.p
-          className="text-center text-sm text-gray-500"
+          className="text-center text-sm"
+          style={{ color: '#666666' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
         >
-          Programa oficial de recompensas patrocinado pelo Cupom Premiado
+          Programa oficial de recompensas patrocinado pelo Respostas Premiadas
         </motion.p>
       </motion.div>
     </div>

@@ -132,7 +132,8 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit }) => {
       </div>
 
       <motion.h1 
-        className="text-3xl font-bold text-gray-800 mb-4"
+        className="text-3xl font-bold mb-4"
+        style={{ color: '#212121' }}
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4 }}
@@ -141,7 +142,8 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit }) => {
       </motion.h1>
 
       <motion.p 
-        className="text-lg text-gray-600 mb-6"
+        className="text-lg mb-6"
+        style={{ color: '#666666' }}
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -150,7 +152,8 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit }) => {
       </motion.p>
 
       <motion.div
-        className="text-4xl font-bold text-primary mb-8"
+        className="text-4xl font-bold mb-8"
+        style={{ color: '#FF7A00' }}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.6 }}
@@ -167,9 +170,12 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit }) => {
         <button
           className={`py-3 px-4 rounded-lg font-medium transition-all duration-300 ${
             pixType === 'cpf' 
-              ? 'bg-primary text-white shadow-lg scale-105' 
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              ? 'text-white shadow-lg scale-105' 
+              : 'text-gray-600 hover:bg-gray-200'
           }`}
+          style={{ 
+            backgroundColor: pixType === 'cpf' ? '#FF7A00' : '#F7F8FA'
+          }}
           onClick={() => {
             setPixType('cpf');
             setPixKey('');
@@ -181,9 +187,12 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit }) => {
         <button
           className={`py-3 px-4 rounded-lg font-medium transition-all duration-300 ${
             pixType === 'telefone' 
-              ? 'bg-primary text-white shadow-lg scale-105' 
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              ? 'text-white shadow-lg scale-105' 
+              : 'text-gray-600 hover:bg-gray-200'
           }`}
+          style={{ 
+            backgroundColor: pixType === 'telefone' ? '#FF7A00' : '#F7F8FA'
+          }}
           onClick={() => {
             setPixType('telefone');
             setPixKey('');
@@ -195,9 +204,12 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit }) => {
         <button
           className={`py-3 px-4 rounded-lg font-medium transition-all duration-300 ${
             pixType === 'email' 
-              ? 'bg-primary text-white shadow-lg scale-105' 
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              ? 'text-white shadow-lg scale-105' 
+              : 'text-gray-600 hover:bg-gray-200'
           }`}
+          style={{ 
+            backgroundColor: pixType === 'email' ? '#FF7A00' : '#F7F8FA'
+          }}
           onClick={() => {
             setPixType('email');
             setPixKey('');
@@ -221,14 +233,17 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit }) => {
           placeholder={getPlaceholder()}
           className={`w-full px-4 py-3 rounded-lg border-2 focus:outline-none text-lg ${
             cpfError ? 'border-red-300 focus:border-red-500' : 
-            'border-gray-200 focus:border-primary'
+            'border-gray-200'
           }`}
+          style={{
+            focusBorderColor: cpfError ? 'rgb(239, 68, 68)' : '#FF7A00'
+          }}
           maxLength={pixType === 'cpf' ? 14 : pixType === 'telefone' ? 15 : undefined}
         />
         
         <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
           {isValidatingCpf && pixType === 'cpf' && (
-            <Loader2 className="w-5 h-5 text-primary animate-spin" />
+            <Loader2 className="w-5 h-5 animate-spin" style={{ color: '#FF7A00' }} />
           )}
         </div>
 
@@ -250,8 +265,11 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit }) => {
         className={`w-full py-4 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
           !isValidKey() || isValidatingCpf
             ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-            : 'bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg hover:scale-105'
+            : 'text-white hover:shadow-lg hover:scale-105'
         }`}
+        style={{
+          backgroundColor: !isValidKey() || isValidatingCpf ? '#F7F8FA' : '#FF7A00'
+        }}
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.9 }}
@@ -272,7 +290,8 @@ export const PixScreen: React.FC<PixScreenProps> = ({ balance, onSubmit }) => {
       </motion.button>
 
       <motion.p
-        className="mt-4 text-sm text-gray-500"
+        className="mt-4 text-sm"
+        style={{ color: '#666666' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}

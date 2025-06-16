@@ -1,12 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Lock, ArrowRight, Shield, Clock, CheckCircle2 } from 'lucide-react';
+import { Lock, ArrowRight, Shield, Clock, CheckCircle2, AlertTriangle, DollarSign, Star, Zap } from 'lucide-react';
 
 interface FailureScreenProps {
   onContinue: () => void;
 }
 
 export const FailureScreen: React.FC<FailureScreenProps> = ({ onContinue }) => {
+  // Simula o valor que o usuário ganhou (pode vir como prop)
+  const valorGanho = 1548.00;
+  
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  };
+
   const handleUnlock = () => {
     // Captura todos os parâmetros da URL atual
     const params = new URLSearchParams(window.location.search);
@@ -58,170 +68,242 @@ export const FailureScreen: React.FC<FailureScreenProps> = ({ onContinue }) => {
       .filter(Boolean)
       .join('&');
 
-    // URL base do checkout
-    const baseUrl = 'https://pay.realizar-pagamento.com/checkout/e552c759-d945-44a6-b0a8-2fcbc823b442';
+    // URL base do checkout - ATUALIZADA PARA PERFECT PAY
+    const baseUrl = 'https://go.perfectpay.com.br/PPU38CPQPMG';
     
     // Constrói a URL final com todos os parâmetros
     const redirectUrl = `${baseUrl}${utmString ? '?' + utmString : ''}`;
 
-    console.log('Redirecting to checkout with UTMs:', redirectUrl);
+    console.log('Redirecting to Perfect Pay checkout with UTMs:', redirectUrl);
     
     // Redireciona para o checkout
     window.location.href = redirectUrl;
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FFB800] via-[#FF8500] to-[#FF6B00]">
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-      </div>
-      
-      <motion.div 
-        className="bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl p-8 max-w-md w-full relative z-10"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="text-center space-y-6">
+    <motion.div 
+      className="bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl p-8 max-w-md w-full relative z-10"
+      initial={{ scale: 0.9, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="text-center space-y-6">
+        {/* ÍCONE PRINCIPAL COM ANIMAÇÃO MELHORADA */}
+        <motion.div 
+          className="relative w-20 h-20 mx-auto"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+        >
           <motion.div 
-            className="relative w-24 h-24 mx-auto"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+            className="absolute inset-0 rounded-2xl flex items-center justify-center"
+            style={{ background: 'linear-gradient(to bottom right, #FF7A00, #FF7A00)' }}
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, -5, 0]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
           >
-            {/* Lock animation */}
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-[#FFB800] to-[#FF8500] rounded-2xl flex items-center justify-center"
-              animate={{
-                scale: [1, 1.1, 1],
-                rotate: [0, 5, -5, 0]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                repeatType: "reverse"
-              }}
-            >
-              <Lock className="w-12 h-12 text-white" />
-            </motion.div>
-            
-            {/* Pulse effect */}
-            <motion.div
-              className="absolute inset-0 bg-[#FFB800] rounded-2xl"
-              initial={{ scale: 1 }}
-              animate={{ scale: 1.5, opacity: 0 }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeOut"
-              }}
-            />
+            <Lock className="w-10 h-10 text-white" />
           </motion.div>
           
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="space-y-4"
-          >
-            <h2 className="text-2xl font-bold text-gray-800">Taxa de Segurança</h2>
-            <p className="text-gray-500">
-              Para garantir a segurança do seu saque e validar sua conta na plataforma Cupom Premiado, é necessário pagar uma taxa única de segurança.
-            </p>
-            <div className="bg-[#FFB800]/5 p-4 rounded-lg border border-[#FFB800]/20">
-              <p className="text-sm text-[#FF8500]/90">
-                Esta taxa é uma medida de segurança para:
+            className="absolute inset-0 rounded-2xl"
+            style={{ backgroundColor: '#FF7A00' }}
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.5, opacity: 0 }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeOut"
+            }}
+          />
+        </motion.div>
+        
+        {/* TÍTULO PRINCIPAL COM VALOR PERSONALIZADO */}
+        <motion.div
+          className="space-y-3"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          <h2 className="text-2xl font-bold leading-tight" style={{ color: '#212121' }}>
+            Você acabou de gerar{' '}
+            <span className="text-3xl font-black" style={{ color: '#FF7A00' }}>
+              {formatCurrency(valorGanho)}
+            </span>
+          </h2>
+          <p className="text-lg font-semibold" style={{ color: '#212121' }}>
+            — só falta confirmar que é você para receber agora
+          </p>
+        </motion.div>
+        
+        {/* SUBTÍTULO EXPLICATIVO */}
+        <motion.div
+          className="space-y-3"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          <p className="leading-relaxed" style={{ color: '#212121' }}>
+            Por segurança, precisamos confirmar que você é uma pessoa real (e não um bot).
+          </p>
+          <p style={{ color: '#666666' }}>
+            A verificação é instantânea e seu saque é liberado logo em seguida.
+          </p>
+        </motion.div>
+
+        {/* SELOS DE SEGURANÇA REESTRUTURADOS */}
+        <motion.div
+          className="grid grid-cols-1 gap-3"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="flex items-center gap-3 p-3 rounded-xl border" style={{ backgroundColor: '#1DB954', borderColor: '#1DB954' }}>
+            <CheckCircle2 className="w-6 h-6 text-white flex-shrink-0" />
+            <span className="text-white font-medium">Conta verificada pelo sistema</span>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-xl border" style={{ backgroundColor: '#1A2E44', borderColor: '#1A2E44' }}>
+            <Shield className="w-6 h-6 text-white flex-shrink-0" />
+            <span className="text-white font-medium">Transação protegida com criptografia</span>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-xl border" style={{ backgroundColor: '#FF7A00', borderColor: '#FF7A00' }}>
+            <Zap className="w-6 h-6 text-white flex-shrink-0" />
+            <span className="text-white font-medium">Dinheiro liberado em até 3 minutos</span>
+          </div>
+        </motion.div>
+
+        {/* TEXTO DE PERSUASÃO */}
+        <motion.div 
+          className="p-4 rounded-xl border"
+          style={{ 
+            background: 'linear-gradient(to right, rgba(255, 122, 0, 0.1), rgba(255, 122, 0, 0.1))',
+            borderColor: '#FF7A00'
+          }}
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
+          <p className="text-sm leading-relaxed mb-3" style={{ color: '#212121' }}>
+            Mais de <span className="font-bold">17.000 pessoas</span> já sacaram entre{' '}
+            <span className="font-bold" style={{ color: '#1DB954' }}>R$117</span> e{' '}
+            <span className="font-bold" style={{ color: '#1DB954' }}>R$1.097</span> usando esse mesmo sistema — e todas passaram por essa etapa.
+          </p>
+          <p className="text-sm" style={{ color: '#666666' }}>
+            Esse passo protege o sistema de fraudes e garante que o valor vá direto pra sua chave PIX.
+          </p>
+        </motion.div>
+
+        {/* GARANTIA DE REEMBOLSO */}
+        <motion.div 
+          className="p-4 rounded-xl border-2"
+          style={{ 
+            background: 'linear-gradient(to right, rgba(29, 185, 84, 0.1), rgba(29, 185, 84, 0.1))',
+            borderColor: '#1DB954'
+          }}
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.7 }}
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#1DB954' }}>
+              <DollarSign className="w-5 h-5 text-white" />
+            </div>
+            <div className="text-left">
+              <p className="font-bold text-sm" style={{ color: '#1DB954' }}>
+                📌 A verificação tem custo simbólico — 100% reembolsável junto com seu saque.
               </p>
-              <ul className="mt-2 space-y-2">
-                <li className="flex items-center gap-2 text-sm text-[#FF8500]/70">
-                  <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  Validar sua identidade
-                </li>
-                <li className="flex items-center gap-2 text-sm text-[#FF8500]/70">
-                  <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  Prevenir fraudes e abusos
-                </li>
-                <li className="flex items-center gap-2 text-sm text-[#FF8500]/70">
-                  <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  Garantir a legitimidade do saque
-                </li>
-              </ul>
             </div>
+          </div>
+        </motion.div>
 
-            <div className="bg-green-50 p-4 rounded-lg border border-green-100">
-              <p className="text-sm text-green-600">
-                O valor da taxa será totalmente reembolsado junto com seu saque após a validação
+        {/* PROVA SOCIAL COM FOTO ATUALIZADA */}
+        <motion.div 
+          className="p-4 rounded-xl border"
+          style={{ 
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            borderColor: '#1A2E44'
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          <div className="flex items-start gap-3">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdCy35z_NzHu34apsqV_yLbSnur9sGP4J2Ag&s"
+              alt="Caio M."
+              className="w-12 h-12 rounded-full object-cover border-2"
+              style={{ borderColor: '#FF7A00' }}
+            />
+            <div className="flex-1">
+              <div className="flex mb-2">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star key={star} className="w-4 h-4 fill-current text-yellow-500" />
+                ))}
+              </div>
+              <p className="text-sm italic" style={{ color: '#212121' }}>
+                "Eu achei que era enrolação… fiz a verificação e caiu o dinheiro na hora. R$289 direto no Pix!"
+              </p>
+              <p className="text-xs mt-1 font-medium" style={{ color: '#666666' }}>
+                — Caio M., São Paulo/SP
               </p>
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          <motion.div
-            className="grid grid-cols-3 gap-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-100 text-center">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#FFB800] to-[#FF8500] rounded-full flex items-center justify-center mx-auto mb-2">
-                <Shield className="w-5 h-5 text-white" />
-              </div>
-              <h4 className="font-semibold text-gray-800 text-xs mb-1 leading-tight">Segurança</h4>
-              <p className="text-xs text-gray-600 leading-tight">Proteção garantida</p>
-            </div>
-            <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-100 text-center">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#FFB800] to-[#FF8500] rounded-full flex items-center justify-center mx-auto mb-2">
-                <Clock className="w-5 h-5 text-white" />
-              </div>
-              <h4 className="font-semibold text-gray-800 text-xs mb-1 leading-tight">Rápido</h4>
-              <p className="text-xs text-gray-600 leading-tight">Liberação em 10min</p>
-            </div>
-            <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-100 text-center">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#FFB800] to-[#FF8500] rounded-full flex items-center justify-center mx-auto mb-2">
-                <CheckCircle2 className="w-5 h-5 text-white" />
-              </div>
-              <h4 className="font-semibold text-gray-800 text-xs mb-1 leading-tight">Garantido</h4>
-              <p className="text-xs text-gray-600 leading-tight">100% seguro</p>
-            </div>
-          </motion.div>
-
-          <motion.button
-            onClick={handleUnlock}
-            className="w-full py-4 px-6 bg-gradient-to-r from-[#FFB800] to-[#FF8500] text-white rounded-lg font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mb-6"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            DESBLOQUEAR AGORA
-            <ArrowRight className="w-5 h-5" />
-          </motion.button>
-
-          <div className="w-full h-[1px] bg-gray-200 mb-4"></div>
-
-          <motion.div
-            className="bg-gradient-to-r from-[#FFB800]/10 to-[#FF8500]/10 p-4 rounded-lg border border-[#FFB800]/20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            <p className="text-sm font-medium text-[#FF8500]/90">
-              Após o pagamento da taxa, seu saque será liberado automaticamente
+        {/* URGÊNCIA */}
+        <motion.div 
+          className="p-3 rounded-lg border"
+          style={{ 
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            borderColor: 'rgb(239, 68, 68)'
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9 }}
+        >
+          <div className="flex items-center gap-2 justify-center">
+            <AlertTriangle className="w-4 h-4 text-red-500" />
+            <p className="text-sm text-red-700 font-medium">
+              ⚠️ Se você sair dessa página, o valor gerado será cancelado automaticamente.
             </p>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          <div className="w-full h-[1px] bg-gray-200 my-4"></div>
+        {/* BOTÃO PRINCIPAL COM DEGRADÊ */}
+        <motion.button
+          onClick={handleUnlock}
+          className="w-full py-4 px-6 text-white rounded-xl font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+          style={{ 
+            background: 'linear-gradient(135deg, #FF7A00 0%, #FFB800 100%)',
+            boxShadow: '0 8px 32px rgba(255, 122, 0, 0.4)'
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 1 }}
+        >
+          🔓 SIM, QUERO DESBLOQUEAR E RECEBER AGORA
+          <ArrowRight className="w-5 h-5" />
+        </motion.button>
 
-          <motion.p
-            className="text-xs text-gray-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-          >
-            Ao prosseguir com o pagamento da taxa, você concorda com nossos <span className="font-semibold">Termos</span> e <span className="font-semibold">Condições</span>
-          </motion.p>
-        </div>
-      </motion.div>
-    </div>
+        {/* INFORMAÇÃO FINAL */}
+        <motion.p
+          className="text-xs"
+          style={{ color: '#666666' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.1 }}
+        >
+          Verificação instantânea • Saque liberado automaticamente
+        </motion.p>
+      </div>
+    </motion.div>
   );
 };
