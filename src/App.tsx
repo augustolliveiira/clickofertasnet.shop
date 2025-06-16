@@ -424,6 +424,19 @@ function App() {
 
         <div className={`relative z-10 text-center transition-all duration-1000 ${startingQuiz ? 'scale-150 opacity-0' : 'scale-100 opacity-100'}`}>
           <div className="max-w-[420px] mx-auto">
+            {/* LOGO RESPOSTAS PREMIADAS NO TOPO */}
+            <motion.div
+              className="mb-8"
+              initial={{ y: -30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h1 className="text-3xl font-bold" style={{ color: '#FF7A00' }}>
+                RESPOSTAS PREMIADAS
+              </h1>
+              <div className="w-16 h-1 rounded-full mx-auto mt-2" style={{ backgroundColor: '#FF7A00' }}></div>
+            </motion.div>
+
             {/* Moeda no topo com efeito */}
             <motion.div
               className="relative mb-6"

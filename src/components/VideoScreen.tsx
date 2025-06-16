@@ -8,7 +8,7 @@ interface VideoScreenProps {
 }
 
 export const VideoScreen: React.FC<VideoScreenProps> = ({ balance, onComplete }) => {
-  const [timeLeft, setTimeLeft] = useState(40); // 40 segundos
+  const [timeLeft, setTimeLeft] = useState(75); // 1:15 = 75 segundos
   const [showButton, setShowButton] = useState(false);
   const [showExtraQuestionsPopup, setShowExtraQuestionsPopup] = useState(false);
   const [popupCountdown, setPopupCountdown] = useState(3); // 3 segundos de countdown
